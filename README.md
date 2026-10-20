@@ -49,7 +49,7 @@ python faq_assistant/assistant.py
 
 ```
 python-practical-lab/
-├── index.htm                   # Universal web portal (open in browser)
+├── index.html                  # Universal web portal (open in browser)
 ├── README.md                   # This file
 ├── requirements.txt            # Dependency declaration (stdlib only)
 ├── .gitignore
@@ -60,28 +60,28 @@ python-practical-lab/
 │
 ├── word_challenge/             # Task 1
 │   ├── game.py
-│   ├── index.htm
+│   ├── index.html
 │   ├── README.md
 │   ├── resources/words.txt     # Google 10k English word list
 │   └── tests/test_game.py
 │
 ├── market_journal/             # Task 2
 │   ├── tracker.py
-│   ├── index.htm
+│   ├── index.html
 │   ├── README.md
 │   ├── resources/constituents.csv   # S&P 500 constituents
 │   └── tests/test_tracker.py
 │
 ├── desktop_sorter/             # Task 3
 │   ├── sorter.py
-│   ├── index.htm
+│   ├── index.html
 │   ├── README.md
 │   ├── logs/
 │   └── tests/test_sorter.py
 │
 ├── faq_assistant/              # Task 4
 │   ├── assistant.py
-│   ├── index.htm
+│   ├── index.html
 │   ├── README.md
 │   ├── resources/sample_faq.json
 │   └── tests/test_assistant.py
@@ -108,7 +108,7 @@ python -m unittest discover faq_assistant/tests -v
 
 ## Web Portal
 
-Open `index.htm` in any modern browser for the project landing page with navigation to all four applications.
+Open `index.html` in any modern browser for the project landing page with navigation to all four applications.
 
 ---
 

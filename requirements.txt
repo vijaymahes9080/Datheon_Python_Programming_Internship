@@ -1,0 +1,9 @@
+# Python Practical Lab — Requirements
+# All four applications use only the Python standard library for core functionality.
+# No third-party packages are required to run the programs.
+
+# Optional: for live stock price fetching (Task 2 extended feature only)
+# requests>=2.28.0   # Uncomment only if you want live price lookups
+
+# Development and testing
+# No additional packages needed — uses built-in unittest framework

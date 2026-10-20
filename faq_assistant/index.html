@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FAQ Conversation Assistant — Rule-based chatbot with live web chat simulator, Jaccard similarity intent matching, and test coverage.">
+  <title>FAQ Conversation Assistant — Python Practical Lab</title>
+  <link rel="stylesheet" href="../web/styles/main.css">
+  <style>
+    .chat-simulator-card {
+      background: white;
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 540px;
+      margin-top: var(--sp-6);
+    }
+    .chat-header {
+      background: var(--clr-surface-alt);
+      border-bottom: 1px solid var(--clr-border);
+      padding: var(--sp-3) var(--sp-6);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .chat-messages {
+      flex: 1;
+      padding: var(--sp-6);
+      overflow-y: auto;
+      background: var(--clr-bg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+    }
+    .message-bubble {
+      max-width: 75%;
+      padding: var(--sp-3) var(--sp-4);
+      border-radius: var(--radius-md);
+      font-size: var(--text-sm);
+      line-height: 1.5;
+      position: relative;
+    }
+    .message-user {
+      align-self: flex-end;
+      background: var(--clr-ink);
+      color: white;
+      border-bottom-right-radius: 2px;
+    }
+    .message-bot {
+      align-self: flex-start;
+      background: white;
+      color: var(--clr-ink);
+      border: 1px solid var(--clr-border);
+      border-bottom-left-radius: 2px;
+    }
+    .intent-pill {
+      display: inline-block;
+      font-size: 10px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: var(--radius-full);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+    .intent-greeting { background: #E0E7FF; color: #3730A3; }
+    .intent-faq { background: #D1FAE5; color: #065F46; }
+    .intent-fallback { background: #FEF3C7; color: #92400E; }
+    .intent-exit { background: #FEE2E2; color: #991B1B; }
+    .intent-help { background: #F3E8FF; color: #6B21A8; }
+
+    .chat-input-area {
+      padding: var(--sp-3) var(--sp-6);
+      background: white;
+      border-top: 1px solid var(--clr-border);
+      display: flex;
+      gap: var(--sp-2);
+    }
+    .chat-input {
+      flex: 1;
+      padding: var(--sp-2) var(--sp-4);
+      font-size: var(--text-sm);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-full);
+      font-family: var(--font-sans);
+    }
+    .chat-input:focus {
+      outline: none;
+      border-color: var(--clr-accent);
+    }
+    .suggestions-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: var(--sp-2) var(--sp-6);
+      background: var(--clr-surface);
+      border-top: 1px solid var(--clr-border-light);
+    }
+    .suggestion-btn {
+      background: white;
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-full);
+      padding: 3px 10px;
+      font-size: 11px;
+      color: var(--clr-ink-mid);
+      cursor: pointer;
+      transition: all var(--duration) var(--ease-out);
+    }
+    .suggestion-btn:hover {
+      background: var(--clr-accent-bg);
+      border-color: var(--clr-accent);
+      color: var(--clr-accent);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav-bar" aria-label="Main Navigation">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo" id="nav-brand">
+        <span class="logo-icon" aria-hidden="true">◀</span>
+        <span class="logo-text">Python Practical Lab</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html" class="nav-link">← Portal Home</a>
+        <a href="#interactive-chat" class="nav-link">Live Chat</a>
+        <a href="#cli-guide" class="nav-link">CLI Guide</a>
+        <a href="#architecture" class="nav-link">Architecture</a>
+        <a href="#validation" class="nav-link">Validation</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-container">
+    <!-- Breadcrumb -->
+    <div style="padding: var(--sp-6) 0 var(--sp-2);">
+      <p style="color: var(--clr-ink-muted); font-size: var(--text-sm);">
+        <a href="../index.html" style="color: var(--clr-accent); text-decoration: none;">Projects</a>
+        &nbsp;/&nbsp; Task 04: FAQ Conversation Assistant
+      </p>
+    </div>
+
+    <!-- Hero Header -->
+    <header class="section-header" style="text-align: left; margin-bottom: var(--sp-8);">
+      <div style="display: flex; gap: var(--sp-2); align-items: center; margin-bottom: var(--sp-3);">
+        <span class="badge" style="background: var(--clr-accent-bg); color: var(--clr-accent); font-weight: 700;">Task 04</span>
+        <span class="badge" style="background: #E6F4EA; color: var(--clr-success); font-weight: 600;">Verified Standard Library</span>
+      </div>
+      <h1 class="section-title" style="font-size: var(--text-4xl); margin-bottom: var(--sp-3);">FAQ Conversation Assistant</h1>
+      <p class="section-lead">
+        Deterministic, rule-based conversational assistant grounded strictly in a verified JSON FAQ dataset,
+        featuring Jaccard keyword scoring, defensive normalization, and zero hallucinations.
+      </p>
+    </header>
+
+    <!-- Interactive Chat Simulator -->
+    <section class="section" id="interactive-chat" style="padding-top: 0;">
+      <div class="card" style="padding: var(--sp-8); border: 1px solid var(--clr-border);">
+        <div style="margin-bottom: var(--sp-2);">
+          <h2 style="font-size: var(--text-2xl); color: var(--clr-ink); margin-bottom: var(--sp-1);">Interactive Conversation Simulator</h2>
+          <p style="color: var(--clr-ink-mid); font-size: var(--text-sm);">
+            Test greetings, dataset FAQ retrieval, help queries, and fallback clarification questions.
+          </p>
+        </div>
+
+        <div class="chat-simulator-card">
+          <div class="chat-header">
+            <div>
+              <span style="font-weight: 700; color: var(--clr-ink);">Assistant Engine v1.0</span>
+              <span style="font-size: var(--text-xs); color: var(--clr-success); margin-left: var(--sp-2);">● Grounded (sample_faq.json)</span>
+            </div>
+            <button id="btn-clear-chat" style="background: none; border: none; font-size: var(--text-xs); color: var(--clr-ink-muted); cursor: pointer;">
+              Clear History
+            </button>
+          </div>
+
+          <!-- Messages Container -->
+          <div class="chat-messages" id="chat-messages-container">
+            <div class="message-bubble message-bot">
+              <span class="intent-pill intent-greeting">GREETING</span><br>
+              Hello! I am your FAQ Conversation Assistant. How can I assist you with your internship questions today?
+            </div>
+          </div>
+
+          <!-- Suggestions Row -->
+          <div class="suggestions-row">
+            <span style="font-size: 11px; color: var(--clr-ink-muted); align-self: center;">Try asking:</span>
+            <button class="suggestion-btn" onclick="sendQuickPrompt('Hello there!')">"Hello there!"</button>
+            <button class="suggestion-btn" onclick="sendQuickPrompt('What is an internship?')">"What is an internship?"</button>
+            <button class="suggestion-btn" onclick="sendQuickPrompt('How can I apply for an internship?')">"How can I apply for an internship?"</button>
+            <button class="suggestion-btn" onclick="sendQuickPrompt('Are internships paid or unpaid?')">"Are internships paid or unpaid?"</button>
+            <button class="suggestion-btn" onclick="sendQuickPrompt('Can you cook dinner?')">"Can you cook dinner?"</button>
+            <button class="suggestion-btn" onclick="sendQuickPrompt('bye')">"bye"</button>
+          </div>
+
+          <!-- Input Row -->
+          <form id="chat-form" class="chat-input-area">
+            <input type="text" id="chat-input" class="chat-input" placeholder="Type your query or greeting here..." autocomplete="off">
+            <button type="submit" class="btn btn-primary" style="padding: var(--sp-2) var(--sp-5); border-radius: var(--radius-full); cursor: pointer;">
+              Send
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Terminal Execution Guide -->
+    <section class="section" id="cli-guide" style="padding-top: var(--sp-6);">
+      <h2 class="section-title" style="font-size: var(--text-2xl); margin-bottom: var(--sp-3);">Terminal Execution Guide</h2>
+      <p style="color: var(--clr-ink-mid); margin-bottom: var(--sp-4);">
+        Interactive REPL loop in terminal with clean session prompts and graceful exit handlers.
+      </p>
+
+      <div style="background: #111029; border-radius: var(--radius-lg); padding: var(--sp-6); color: #E2E8F0; font-family: var(--font-mono); font-size: var(--text-sm);">
+        <p style="color: #94A3B8; margin-bottom: var(--sp-2);"># 1. Switch into the chatbot directory</p>
+        <p style="color: #38BDF8; margin-bottom: var(--sp-4);">cd d:\intership\python\vj\faq_assistant</p>
+        <p style="color: #94A3B8; margin-bottom: var(--sp-2);"># 2. Launch the interactive conversational REPL</p>
+        <p style="color: #4ADE80; margin-bottom: var(--sp-4);">python assistant.py</p>
+        <p style="color: #94A3B8; margin-bottom: var(--sp-2);"># 3. Run automated intent & matching unit test suite</p>
+        <p style="color: #FACC15;">python -m unittest tests/test_assistant.py -v</p>
+      </div>
+    </section>
+
+    <!-- Architecture & Intent Hierarchy -->
+    <section class="section" id="architecture" style="padding-top: var(--sp-6);">
+      <h2 class="section-title" style="font-size: var(--text-2xl); margin-bottom: var(--sp-3);">Intent Engine &amp; Matching Pipeline</h2>
+      <div class="grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--sp-6); margin-top: var(--sp-4);">
+        <div class="card" style="padding: var(--sp-6); background: var(--clr-surface); border: 1px solid var(--clr-border);">
+          <h3 style="font-size: var(--text-lg); color: var(--clr-ink); margin-bottom: var(--sp-2);">Strict Intent Hierarchy</h3>
+          <p style="color: var(--clr-ink-mid); font-size: var(--text-sm); line-height: 1.6;">
+            Evaluates inputs through an explicit pipeline:
+            <strong>EXIT</strong> (bye, quit) &rarr;
+            <strong>GREETING</strong> (regex match against greetings list) &rarr;
+            <strong>FAQ_MATCH</strong> (Jaccard similarity scoring) &rarr;
+            <strong>HELP</strong> &rarr;
+            <strong>FALLBACK</strong>.
+          </p>
+        </div>
+
+        <div class="card" style="padding: var(--sp-6); background: var(--clr-surface); border: 1px solid var(--clr-border);">
+          <h3 style="font-size: var(--text-lg); color: var(--clr-ink); margin-bottom: var(--sp-2);">Jaccard Keyword Similarity</h3>
+          <p style="color: var(--clr-ink-mid); font-size: var(--text-sm); line-height: 1.6;">
+            Tokens are stripped of punctuation and common English stopwords. The assistant calculates set intersection over set union against FAQ questions, triggering answers only above threshold.
+          </p>
+        </div>
+
+        <div class="card" style="padding: var(--sp-6); background: var(--clr-surface); border: 1px solid var(--clr-border);">
+          <h3 style="font-size: var(--text-lg); color: var(--clr-ink); margin-bottom: var(--sp-2);">Honest Clarification Fallback</h3>
+          <p style="color: var(--clr-ink-mid); font-size: var(--text-sm); line-height: 1.6;">
+            When a question cannot be resolved with certainty from the verified dataset, the assistant asks a polite clarifying question instead of making up false information.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Validation & Testing -->
+    <section class="section" id="validation" style="padding-top: var(--sp-6); padding-bottom: var(--sp-12);">
+      <h2 class="section-title" style="font-size: var(--text-2xl); margin-bottom: var(--sp-3);">Validation & Test Coverage</h2>
+      <div class="table-container" style="overflow-x: auto; background: var(--clr-surface); border-radius: var(--radius-md); border: 1px solid var(--clr-border);">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: var(--text-sm);">
+          <thead>
+            <tr style="background: var(--clr-surface-alt); border-bottom: 2px solid var(--clr-border);">
+              <th style="padding: var(--sp-3) var(--sp-4);">Test Case Class</th>
+              <th style="padding: var(--sp-3) var(--sp-4);">Scenario Tested</th>
+              <th style="padding: var(--sp-3) var(--sp-4);">Expected Outcome</th>
+              <th style="padding: var(--sp-3) var(--sp-4);">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--clr-border-light);">
+              <td style="padding: var(--sp-3) var(--sp-4); font-family: var(--font-mono); font-weight: 600;">TestFAQLoading</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">Load valid JSON, corrupt JSON, missing path</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">Graceful recovery with fallback structure</td>
+              <td style="padding: var(--sp-3) var(--sp-4); color: var(--clr-success); font-weight: 700;">PASSED</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--clr-border-light);">
+              <td style="padding: var(--sp-3) var(--sp-4); font-family: var(--font-mono); font-weight: 600;">TestNormalization</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">Excess whitespace, mixed casing, punctuation</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">Consistent sanitized token array</td>
+              <td style="padding: var(--sp-3) var(--sp-4); color: var(--clr-success); font-weight: 700;">PASSED</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--clr-border-light);">
+              <td style="padding: var(--sp-3) var(--sp-4); font-family: var(--font-mono); font-weight: 600;">TestIntentRecognition</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">Greetings, FAQ inquiries, help requests, exits</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">Correct classification enum returned</td>
+              <td style="padding: var(--sp-3) var(--sp-4); color: var(--clr-success); font-weight: 700;">PASSED</td>
+            </tr>
+            <tr>
+              <td style="padding: var(--sp-3) var(--sp-4); font-family: var(--font-mono); font-weight: 600;">TestFallbackBehavior</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">Out-of-domain query (e.g. quantum physics)</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">Triggers clarifying prompt without hallucination</td>
+              <td style="padding: var(--sp-3) var(--sp-4); color: var(--clr-success); font-weight: 700;">PASSED</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer style="background: var(--clr-surface); border-top: 1px solid var(--clr-border); padding: var(--sp-8) 0; text-align: center; color: var(--clr-ink-muted); font-size: var(--text-sm);">
+    <p>Python Practical Lab — Task 04: FAQ Conversation Assistant &bull; <a href="../index.html" style="color: var(--clr-accent);">Return to Portal</a></p>
+  </footer>
+
+  <script>
+    const FAQ_DATA = [
+      {
+        question: "What is an internship?",
+        answer: "An internship is a professional learning experience that offers meaningful, practical work related to a student's field of study or career interest."
+      },
+      {
+        question: "How can I apply for an internship?",
+        answer: "You can apply by preparing a tailored resume, crafting a compelling cover letter, and submitting applications through university career portals, LinkedIn, or directly on company careers pages."
+      },
+      {
+        question: "Are internships paid or unpaid?",
+        answer: "Internships can be either paid or unpaid depending on the organization, industry regulations, and jurisdiction. Most technical and software engineering internships are paid."
+      }
+    ];
+
+    const GREETINGS = ["hi", "hello", "hey", "good morning", "good evening", "greetings"];
+    const EXITS = ["bye", "exit", "quit", "goodbye", "see you"];
+
+    const chatContainer = document.getElementById("chat-messages-container");
+    const chatInput = document.getElementById("chat-input");
+    const chatForm = document.getElementById("chat-form");
+
+    function appendMessage(text, isUser, intent = null) {
+      const bubble = document.createElement("div");
+      bubble.className = `message-bubble ${isUser ? 'message-user' : 'message-bot'}`;
+
+      if (!isUser && intent) {
+        let pillClass = "intent-" + intent.toLowerCase();
+        bubble.innerHTML = `<span class="intent-pill ${pillClass}">${intent}</span><br>${text}`;
+      } else {
+        bubble.textContent = text;
+      }
+
+      chatContainer.appendChild(bubble);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    function processQuery(raw) {
+      const q = raw.trim().toLowerCase();
+
+      // 1. Exit
+      if (EXITS.some(e => q === e || q.startsWith(e + " "))) {
+        return {
+          intent: "EXIT",
+          response: "Thank you for chatting! Have a productive day ahead."
+        };
+      }
+
+      // 2. Greeting
+      if (GREETINGS.some(g => q === g || q.startsWith(g + " "))) {
+        return {
+          intent: "GREETING",
+          response: "Hello! How can I assist you with your internship questions today?"
+        };
+      }
+
+      // 3. Help
+      if (q.includes("help") || q.includes("commands") || q.includes("what can you do")) {
+        return {
+          intent: "HELP",
+          response: "I can answer questions regarding internship definition, application guidelines, and compensation policies from our verified FAQ database. Type 'bye' to quit."
+        };
+      }
+
+      // 4. FAQ Match (Token Overlap)
+      const queryTokens = q.replace(/[^a-z0-9 ]/g, "").split(/\s+/).filter(w => w.length > 2);
+      let bestMatch = null;
+      let highestScore = 0;
+
+      FAQ_DATA.forEach(item => {
+        const itemTokens = item.question.toLowerCase().replace(/[^a-z0-9 ]/g, "").split(/\s+/).filter(w => w.length > 2);
+        const intersection = queryTokens.filter(t => itemTokens.includes(t));
+        const score = intersection.length / Math.max(queryTokens.length, 1);
+
+        if (score > highestScore) {
+          highestScore = score;
+          bestMatch = item;
+        }
+      });
+
+      if (bestMatch && highestScore >= 0.25) {
+        return {
+          intent: "FAQ",
+          response: bestMatch.answer
+        };
+      }
+
+      // 5. Fallback
+      return {
+        intent: "FALLBACK",
+        response: "I'm not certain I understood your question regarding internships. Could you try rephrasing or ask about definition, applications, or compensation?"
+      };
+    }
+
+    chatForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const val = chatInput.value.trim();
+      if (!val) return;
+
+      appendMessage(val, true);
+      chatInput.value = "";
+
+      setTimeout(() => {
+        const result = processQuery(val);
+        appendMessage(result.response, false, result.intent);
+      }, 250);
+    });
+
+    function sendQuickPrompt(txt) {
+      chatInput.value = txt;
+      chatForm.dispatchEvent(new Event("submit"));
+    }
+
+    document.getElementById("btn-clear-chat").addEventListener("click", () => {
+      chatContainer.innerHTML = "";
+      appendMessage("Hello! I am your FAQ Conversation Assistant. How can I assist you with your internship questions today?", false, "GREETING");
+    });
+  </script>
+</body>
+</html>

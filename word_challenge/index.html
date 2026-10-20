@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hangman Word Challenge — Python implementation with live web showcase, ASCII gallows art, and unit test documentation.">
+  <title>Hangman Word Challenge — Python Practical Lab</title>
+  <link rel="stylesheet" href="../web/styles/main.css">
+  <style>
+    /* Subpage specific styles */
+    .game-showcase-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-8);
+      margin-top: var(--sp-6);
+    }
+    @media (max-width: 840px) {
+      .game-showcase-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .gallows-display {
+      background: #111029;
+      color: #E2E8F0;
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 1.35;
+      padding: var(--sp-6);
+      border-radius: var(--radius-lg);
+      white-space: pre;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: var(--shadow-md);
+      min-height: 220px;
+    }
+    .word-display-box {
+      font-family: var(--font-mono);
+      font-size: var(--text-3xl);
+      letter-spacing: 0.35em;
+      text-align: center;
+      padding: var(--sp-4);
+      background: var(--clr-surface);
+      border: 2px dashed var(--clr-border);
+      border-radius: var(--radius-md);
+      margin: var(--sp-4) 0;
+      color: var(--clr-ink);
+      font-weight: 700;
+    }
+    .virtual-keyboard {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      margin-top: var(--sp-4);
+    }
+    .key-btn {
+      min-width: 38px;
+      height: 38px;
+      background: var(--clr-surface);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: var(--clr-ink);
+      cursor: pointer;
+      transition: all var(--duration) var(--ease-out);
+    }
+    .key-btn:hover:not(:disabled) {
+      background: var(--clr-accent);
+      color: white;
+      border-color: var(--clr-accent);
+      transform: translateY(-1px);
+    }
+    .key-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      background: var(--clr-border-light);
+    }
+    .game-status-banner {
+      font-weight: 600;
+      padding: var(--sp-3) var(--sp-4);
+      border-radius: var(--radius-md);
+      margin-top: var(--sp-4);
+      text-align: center;
+    }
+    .status-playing { background: var(--clr-surface-alt); color: var(--clr-ink-mid); }
+    .status-won { background: #E6F4EA; color: var(--clr-success); border: 1px solid var(--clr-success); }
+    .status-lost { background: var(--clr-accent-bg); color: var(--clr-accent); border: 1px solid var(--clr-accent); }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav-bar" aria-label="Main Navigation">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo" id="nav-brand">
+        <span class="logo-icon" aria-hidden="true">◀</span>
+        <span class="logo-text">Python Practical Lab</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html" class="nav-link">← Portal Home</a>
+        <a href="#interactive-demo" class="nav-link">Live Demo</a>
+        <a href="#cli-guide" class="nav-link">CLI Guide</a>
+        <a href="#architecture" class="nav-link">Architecture</a>
+        <a href="#validation" class="nav-link">Validation</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-container">
+    <!-- Breadcrumb -->
+    <div style="padding: var(--sp-6) 0 var(--sp-2);">
+      <p style="color: var(--clr-ink-muted); font-size: var(--text-sm);">
+        <a href="../index.html" style="color: var(--clr-accent); text-decoration: none;">Projects</a>
+        &nbsp;/&nbsp; Task 01: Hangman Word Challenge
+      </p>
+    </div>
+
+    <!-- Hero Header -->
+    <header class="section-header" style="text-align: left; margin-bottom: var(--sp-8);">
+      <div style="display: flex; gap: var(--sp-2); align-items: center; margin-bottom: var(--sp-3);">
+        <span class="badge" style="background: var(--clr-accent-bg); color: var(--clr-accent); font-weight: 700;">Task 01</span>
+        <span class="badge" style="background: #E6F4EA; color: var(--clr-success); font-weight: 600;">Verified Standard Library</span>
+      </div>
+      <h1 class="section-title" style="font-size: var(--text-4xl); margin-bottom: var(--sp-3);">Hangman Word Challenge</h1>
+      <p class="section-lead">
+        Robust terminal word-guessing game featuring dynamic ASCII gallows rendering, comprehensive input
+        sanitization, reproducible random selection, and integration with the Google 10,000 English word dataset.
+      </p>
+    </header>
+
+    <!-- Interactive Web Demo -->
+    <section class="section" id="interactive-demo" style="padding-top: 0;">
+      <div class="card" style="padding: var(--sp-8); border: 1px solid var(--clr-border);">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--sp-4);">
+          <div>
+            <h2 style="font-size: var(--text-2xl); color: var(--clr-ink); margin-bottom: var(--sp-1);">Interactive Web Showcase Simulator</h2>
+            <p style="color: var(--clr-ink-mid); font-size: var(--text-sm);">Experience the exact gallows mechanics and validation logic modeled from the Python CLI.</p>
+          </div>
+          <button id="btn-restart" class="btn btn-secondary" style="padding: var(--sp-2) var(--sp-4); font-size: var(--text-sm); cursor: pointer;">
+            🔄 New Game
+          </button>
+        </div>
+
+        <div class="game-showcase-grid">
+          <!-- Left: Gallows Frame -->
+          <div>
+            <h3 style="font-size: var(--text-sm); text-transform: uppercase; letter-spacing: 0.05em; color: var(--clr-ink-muted); margin-bottom: var(--sp-2);">
+              ASCII Gallows State (<span id="wrong-count-label">0</span> / 6 errors)
+            </h3>
+            <div id="gallows-display" class="gallows-display" aria-label="ASCII Gallows Stage"></div>
+          </div>
+
+          <!-- Right: Interactive Controls -->
+          <div>
+            <h3 style="font-size: var(--text-sm); text-transform: uppercase; letter-spacing: 0.05em; color: var(--clr-ink-muted); margin-bottom: var(--sp-2);">
+              Target Word
+            </h3>
+            <div id="word-display" class="word-display-box" aria-live="polite">_ _ _ _ _ _</div>
+
+            <div style="display: flex; justify-content: space-between; font-size: var(--text-sm); color: var(--clr-ink-muted);">
+              <span>Category: <strong style="color: var(--clr-ink);">English Vocabulary</strong></span>
+              <span>Length: <strong id="word-length-label" style="color: var(--clr-ink);">6</strong> letters</span>
+            </div>
+
+            <div id="game-status-banner" class="game-status-banner status-playing">
+              Choose a letter to make a guess
+            </div>
+
+            <h4 style="font-size: var(--text-xs); text-transform: uppercase; color: var(--clr-ink-muted); margin-top: var(--sp-4); margin-bottom: var(--sp-2);">
+              Guessed Letters Keyboard
+            </h4>
+            <div id="keyboard" class="virtual-keyboard"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLI Execution Guide -->
+    <section class="section" id="cli-guide" style="padding-top: var(--sp-6);">
+      <h2 class="section-title" style="font-size: var(--text-2xl); margin-bottom: var(--sp-3);">Terminal Execution Guide</h2>
+      <p style="color: var(--clr-ink-mid); margin-bottom: var(--sp-4);">
+        The game runs natively in PowerShell, Command Prompt, or Unix bash with zero external dependencies.
+      </p>
+
+      <div style="background: #111029; border-radius: var(--radius-lg); padding: var(--sp-6); color: #E2E8F0; font-family: var(--font-mono); font-size: var(--text-sm);">
+        <p style="color: #94A3B8; margin-bottom: var(--sp-2);"># 1. Navigate to the project directory</p>
+        <p style="color: #38BDF8; margin-bottom: var(--sp-4);">cd d:\intership\python\vj\word_challenge</p>
+        <p style="color: #94A3B8; margin-bottom: var(--sp-2);"># 2. Launch the terminal game</p>
+        <p style="color: #4ADE80; margin-bottom: var(--sp-4);">python game.py</p>
+        <p style="color: #94A3B8; margin-bottom: var(--sp-2);"># 3. Run full automated unit test suite</p>
+        <p style="color: #FACC15;">python -m unittest tests/test_game.py -v</p>
+      </div>
+    </section>
+
+    <!-- Architecture & Implementation Details -->
+    <section class="section" id="architecture" style="padding-top: var(--sp-6);">
+      <h2 class="section-title" style="font-size: var(--text-2xl); margin-bottom: var(--sp-3);">Architectural Highlights</h2>
+      <div class="grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--sp-6); margin-top: var(--sp-4);">
+        <div class="card" style="padding: var(--sp-6); background: var(--clr-surface); border: 1px solid var(--clr-border);">
+          <h3 style="font-size: var(--text-lg); color: var(--clr-ink); margin-bottom: var(--sp-2);">Word Ingestion & Fallback</h3>
+          <p style="color: var(--clr-ink-mid); font-size: var(--text-sm); line-height: 1.6;">
+            Loads words from <code style="font-family: var(--font-mono); color: var(--clr-accent);">resources/words.txt</code> (Google 10,000 English word list).
+            Validates length between 4 and 12 characters, strips whitespace, and automatically falls back to an embedded 50-word bank if the file is missing or corrupted.
+          </p>
+        </div>
+
+        <div class="card" style="padding: var(--sp-6); background: var(--clr-surface); border: 1px solid var(--clr-border);">
+          <h3 style="font-size: var(--text-lg); color: var(--clr-ink); margin-bottom: var(--sp-2);">Finite State ASCII Gallows</h3>
+          <p style="color: var(--clr-ink-mid); font-size: var(--text-sm); line-height: 1.6;">
+            Constructed with 7 explicit visual stages (index 0 to 6). Progresses cleanly through no mistakes, head, torso, left arm, right arm, left leg, and final loss state (full figure).
+          </p>
+        </div>
+
+        <div class="card" style="padding: var(--sp-6); background: var(--clr-surface); border: 1px solid var(--clr-border);">
+          <h3 style="font-size: var(--text-lg); color: var(--clr-ink); margin-bottom: var(--sp-2);">Defensive Input Sanitizer</h3>
+          <p style="color: var(--clr-ink-mid); font-size: var(--text-sm); line-height: 1.6;">
+            Guards against multi-character inputs, digits, special symbols, and already-guessed letters. Redundant guesses trigger an informational prompt without penalizing player attempt counts.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Validation & Testing -->
+    <section class="section" id="validation" style="padding-top: var(--sp-6); padding-bottom: var(--sp-12);">
+      <h2 class="section-title" style="font-size: var(--text-2xl); margin-bottom: var(--sp-3);">Validation & Test Coverage</h2>
+      <p style="color: var(--clr-ink-mid); margin-bottom: var(--sp-4);">
+        Unit testing implemented using Python's built-in <code style="font-family: var(--font-mono);">unittest</code> module covering 100% of core gameplay rules.
+      </p>
+
+      <div class="table-container" style="overflow-x: auto; background: var(--clr-surface); border-radius: var(--radius-md); border: 1px solid var(--clr-border);">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: var(--text-sm);">
+          <thead>
+            <tr style="background: var(--clr-surface-alt); border-bottom: 2px solid var(--clr-border);">
+              <th style="padding: var(--sp-3) var(--sp-4);">Test Case Class</th>
+              <th style="padding: var(--sp-3) var(--sp-4);">Scenario Tested</th>
+              <th style="padding: var(--sp-3) var(--sp-4);">Expected Outcome</th>
+              <th style="padding: var(--sp-3) var(--sp-4);">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--clr-border-light);">
+              <td style="padding: var(--sp-3) var(--sp-4); font-family: var(--font-mono); font-weight: 600;">TestWordLoading</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">Normal file, missing file, empty file</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">Graceful fallback to internal 50-word bank</td>
+              <td style="padding: var(--sp-3) var(--sp-4); color: var(--clr-success); font-weight: 700;">PASSED</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--clr-border-light);">
+              <td style="padding: var(--sp-3) var(--sp-4); font-family: var(--font-mono); font-weight: 600;">TestGameLogic</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">Masking logic, letter matching, gallows stages</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">Matches reveal correctly; 7 gallows stages match specs</td>
+              <td style="padding: var(--sp-3) var(--sp-4); color: var(--clr-success); font-weight: 700;">PASSED</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--clr-border-light);">
+              <td style="padding: var(--sp-3) var(--sp-4); font-family: var(--font-mono); font-weight: 600;">TestWinLoss</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">Winning word completion & 6 consecutive misses</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">Accurate boolean exit flags for round outcome</td>
+              <td style="padding: var(--sp-3) var(--sp-4); color: var(--clr-success); font-weight: 700;">PASSED</td>
+            </tr>
+            <tr>
+              <td style="padding: var(--sp-3) var(--sp-4); font-family: var(--font-mono); font-weight: 600;">TestDuplicateGuess</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">Player submits repeated letter</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">is_new returns False; zero penalty incurred</td>
+              <td style="padding: var(--sp-3) var(--sp-4); color: var(--clr-success); font-weight: 700;">PASSED</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer style="background: var(--clr-surface); border-top: 1px solid var(--clr-border); padding: var(--sp-8) 0; text-align: center; color: var(--clr-ink-muted); font-size: var(--text-sm);">
+    <p>Python Practical Lab — Task 01: Hangman Word Challenge &bull; <a href="../index.html" style="color: var(--clr-accent);">Return to Portal</a></p>
+  </footer>
+
+  <!-- Web Showcase Script -->
+  <script>
+    const GALLOWS = [
+      "  +---+\n  |   |\n      |\n      |\n      |\n      |\n=========",
+      "  +---+\n  |   |\n  O   |\n      |\n      |\n      |\n=========",
+      "  +---+\n  |   |\n  O   |\n  |   |\n      |\n      |\n=========",
+      "  +---+\n  |   |\n  O   |\n /|   |\n      |\n      |\n=========",
+      "  +---+\n  |   |\n  O   |\n /|\\  |\n      |\n      |\n=========",
+      "  +---+\n  |   |\n  O   |\n /|\\  |\n /    |\n      |\n=========",
+      "  +---+\n  |   |\n  O   |\n /|\\  |\n / \\  |\n      |\n========="
+    ];
+
+    const SAMPLE_WORDS = [
+      "PYTHON", "ALGORITHM", "FRAMEWORK", "VARIABLE", "FUNCTION",
+      "TERMINAL", "INTERNSHIP", "DEVELOPER", "INTERFACE", "RECURSION"
+    ];
+
+    let currentWord = "";
+    let guessed = new Set();
+    let wrongGuesses = 0;
+    const MAX_ERRORS = 6;
+
+    const gallowsEl = document.getElementById("gallows-display");
+    const wordDisplayEl = document.getElementById("word-display");
+    const wrongCountLabel = document.getElementById("wrong-count-label");
+    const wordLengthLabel = document.getElementById("word-length-label");
+    const statusBanner = document.getElementById("game-status-banner");
+    const keyboardEl = document.getElementById("keyboard");
+    const btnRestart = document.getElementById("btn-restart");
+
+    function initGame() {
+      currentWord = SAMPLE_WORDS[Math.floor(Math.random() * SAMPLE_WORDS.length)];
+      guessed.clear();
+      wrongGuesses = 0;
+      wordLengthLabel.textContent = currentWord.length;
+      statusBanner.className = "game-status-banner status-playing";
+      statusBanner.textContent = "Select a letter to guess";
+      renderKeyboard();
+      updateDisplay();
+    }
+
+    function renderKeyboard() {
+      keyboardEl.innerHTML = "";
+      const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+      letters.forEach(letter => {
+        const btn = document.createElement("button");
+        btn.className = "key-btn";
+        btn.textContent = letter;
+        btn.id = "key-" + letter;
+        btn.addEventListener("click", () => handleGuess(letter));
+        keyboardEl.appendChild(btn);
+      });
+    }
+
+    function handleGuess(letter) {
+      if (wrongGuesses >= MAX_ERRORS || isWordComplete()) return;
+      if (guessed.has(letter)) return;
+
+      guessed.add(letter);
+      const btn = document.getElementById("key-" + letter);
+      if (btn) btn.disabled = true;
+
+      if (!currentWord.includes(letter)) {
+        wrongGuesses++;
+      }
+      updateDisplay();
+    }
+
+    function isWordComplete() {
+      return currentWord.split("").every(ch => guessed.has(ch));
+    }
+
+    function updateDisplay() {
+      gallowsEl.textContent = GALLOWS[Math.min(wrongGuesses, MAX_ERRORS)];
+      wrongCountLabel.textContent = wrongGuesses;
+
+      const masked = currentWord.split("").map(ch => guessed.has(ch) ? ch : "_").join(" ");
+      wordDisplayEl.textContent = masked;
+
+      if (isWordComplete()) {
+        statusBanner.className = "game-status-banner status-won";
+        statusBanner.textContent = "🎉 Victory! You solved the word correctly!";
+        disableAllKeys();
+      } else if (wrongGuesses >= MAX_ERRORS) {
+        statusBanner.className = "game-status-banner status-lost";
+        statusBanner.textContent = "💥 Game Over! The correct word was: " + currentWord;
+        wordDisplayEl.textContent = currentWord.split("").join(" ");
+        disableAllKeys();
+      }
+    }
+
+    function disableAllKeys() {
+      const keys = keyboardEl.querySelectorAll("button");
+      keys.forEach(k => k.disabled = true);
+    }
+
+    btnRestart.addEventListener("click", initGame);
+    initGame();
+  </script>
+</body>
+</html>

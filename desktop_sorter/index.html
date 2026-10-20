@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Desktop File Sorter — Safe, extension-based file organizer with interactive simulator, collision protection, and CLI guide.">
+  <title>Desktop File Sorter — Python Practical Lab</title>
+  <link rel="stylesheet" href="../web/styles/main.css">
+  <style>
+    .sorter-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sp-4);
+      align-items: center;
+      margin-bottom: var(--sp-6);
+      background: var(--clr-surface);
+      padding: var(--sp-4) var(--sp-6);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--clr-border);
+    }
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--sp-4);
+      margin-top: var(--sp-4);
+    }
+    .category-bucket {
+      background: white;
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-md);
+      padding: var(--sp-4);
+      min-height: 140px;
+      transition: all var(--duration) var(--ease-out);
+    }
+    .category-bucket-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--clr-border-light);
+      padding-bottom: var(--sp-2);
+      margin-bottom: var(--sp-2);
+    }
+    .bucket-name {
+      font-weight: 600;
+      font-size: var(--text-sm);
+      color: var(--clr-ink);
+    }
+    .bucket-count {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      background: var(--clr-surface-alt);
+      padding: 2px 6px;
+      border-radius: var(--radius-full);
+      color: var(--clr-ink-mid);
+    }
+    .file-chip {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      background: var(--clr-surface-alt);
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+      margin: 2px;
+      border: 1px solid var(--clr-border-light);
+    }
+    .file-chip.collision {
+      background: #FEF3C7;
+      border-color: #F59E0B;
+      color: #92400E;
+    }
+    .terminal-log-window {
+      background: #111029;
+      color: #A5F3FC;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      line-height: 1.5;
+      padding: var(--sp-4);
+      border-radius: var(--radius-md);
+      height: 180px;
+      overflow-y: auto;
+      border: 1px solid rgba(255,255,255,0.1);
+      margin-top: var(--sp-4);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav-bar" aria-label="Main Navigation">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo" id="nav-brand">
+        <span class="logo-icon" aria-hidden="true">◀</span>
+        <span class="logo-text">Python Practical Lab</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html" class="nav-link">← Portal Home</a>
+        <a href="#interactive-simulator" class="nav-link">Simulator</a>
+        <a href="#cli-guide" class="nav-link">CLI Guide</a>
+        <a href="#architecture" class="nav-link">Architecture</a>
+        <a href="#validation" class="nav-link">Validation</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-container">
+    <!-- Breadcrumb -->
+    <div style="padding: var(--sp-6) 0 var(--sp-2);">
+      <p style="color: var(--clr-ink-muted); font-size: var(--text-sm);">
+        <a href="../index.html" style="color: var(--clr-accent); text-decoration: none;">Projects</a>
+        &nbsp;/&nbsp; Task 03: Desktop File Sorter
+      </p>
+    </div>
+
+    <!-- Hero Header -->
+    <header class="section-header" style="text-align: left; margin-bottom: var(--sp-8);">
+      <div style="display: flex; gap: var(--sp-2); align-items: center; margin-bottom: var(--sp-3);">
+        <span class="badge" style="background: var(--clr-accent-bg); color: var(--clr-accent); font-weight: 700;">Task 03</span>
+        <span class="badge" style="background: #E6F4EA; color: var(--clr-success); font-weight: 600;">Verified Standard Library</span>
+      </div>
+      <h1 class="section-title" style="font-size: var(--text-4xl); margin-bottom: var(--sp-3);">Desktop File Sorter &amp; Cleanup Utility</h1>
+      <p class="section-lead">
+        Safe, multi-category filesystem reorganization utility featuring strict safety checks, preview dry-runs,
+        collision-safe automatic renaming, and persistent audit logging.
+      </p>
+    </header>
+
+    <!-- Interactive Simulator -->
+    <section class="section" id="interactive-simulator" style="padding-top: 0;">
+      <div class="card" style="padding: var(--sp-8); border: 1px solid var(--clr-border);">
+        <div style="margin-bottom: var(--sp-4);">
+          <h2 style="font-size: var(--text-2xl); color: var(--clr-ink); margin-bottom: var(--sp-1);">Interactive File Organization Simulator</h2>
+          <p style="color: var(--clr-ink-mid); font-size: var(--text-sm);">
+            Test dry-run safety previews and collision handling across 9 defined file categories.
+          </p>
+        </div>
+
+        <div class="sorter-controls">
+          <div>
+            <label style="font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; color: var(--clr-ink-muted); display: block; margin-bottom: 4px;">
+              Execution Mode
+            </label>
+            <label style="font-size: var(--text-sm); cursor: pointer; margin-right: 16px;">
+              <input type="radio" name="sort-mode" value="dry" checked id="mode-dry"> 🔍 <strong>Dry-Run</strong> (Preview only, 0 files moved)
+            </label>
+            <label style="font-size: var(--text-sm); cursor: pointer;">
+              <input type="radio" name="sort-mode" value="exec" id="mode-exec"> ⚡ <strong>Confirmed Sort</strong> (Sort into folders)
+            </label>
+          </div>
+
+          <div style="margin-left: auto; display: flex; gap: var(--sp-2);">
+            <button id="btn-run-simulation" class="btn btn-primary" style="cursor: pointer;">
+              ▶ Execute Simulation
+            </button>
+            <button id="btn-reset-simulation" class="btn btn-secondary" style="cursor: pointer;">
+              ↺ Reset
+            </button>
+          </div>
+        </div>
+
+        <!-- 9 Category Buckets -->
+        <h3 style="font-size: var(--text-sm); text-transform: uppercase; letter-spacing: 0.05em; color: var(--clr-ink-muted); margin-bottom: var(--sp-2);">
+          Category Buckets
+        </h3>
+        <div class="categories-grid" id="buckets-grid">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Terminal Log Preview -->
+        <h4 style="font-size: var(--text-xs); text-transform: uppercase; color: var(--clr-ink-muted); margin-top: var(--sp-6); margin-bottom: var(--sp-2);">
+          Virtual Audit Log Output
+        </h4>
+        <div id="virtual-log" class="terminal-log-window">
+[INFO] System initialized. Ready to simulate file sorting with safety checks.
+        </div>
+      </div>
+    </section>
+
+    <!-- Terminal Execution Guide -->
+    <section class="section" id="cli-guide" style="padding-top: var(--sp-6);">
+      <h2 class="section-title" style="font-size: var(--text-2xl); margin-bottom: var(--sp-3);">Terminal Execution Guide</h2>
+      <p style="color: var(--clr-ink-mid); margin-bottom: var(--sp-4);">
+        Standard library Python CLI utility equipped with argparse flags and safety validations.
+      </p>
+
+      <div style="background: #111029; border-radius: var(--radius-lg); padding: var(--sp-6); color: #E2E8F0; font-family: var(--font-mono); font-size: var(--text-sm);">
+        <p style="color: #94A3B8; margin-bottom: var(--sp-2);"># 1. Switch into the sorter directory</p>
+        <p style="color: #38BDF8; margin-bottom: var(--sp-4);">cd d:\intership\python\vj\desktop_sorter</p>
+        <p style="color: #94A3B8; margin-bottom: var(--sp-2);"># 2. Run in DRY-RUN mode (safe inspection - moves nothing)</p>
+        <p style="color: #FACC15; margin-bottom: var(--sp-4);">python sorter.py --target "C:\Users\User\Downloads" --dry-run</p>
+        <p style="color: #94A3B8; margin-bottom: var(--sp-2);"># 3. Run with CONFIRMED execution</p>
+        <p style="color: #4ADE80; margin-bottom: var(--sp-4);">python sorter.py --target "C:\Users\User\Downloads" --confirm</p>
+        <p style="color: #94A3B8; margin-bottom: var(--sp-2);"># 4. Run automated test suite</p>
+        <p style="color: #38BDF8;">python -m unittest tests/test_sorter.py -v</p>
+      </div>
+    </section>
+
+    <!-- Architecture & Safety Guards -->
+    <section class="section" id="architecture" style="padding-top: var(--sp-6);">
+      <h2 class="section-title" style="font-size: var(--text-2xl); margin-bottom: var(--sp-3);">Safety Architecture &amp; Collision Rules</h2>
+      <div class="grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--sp-6); margin-top: var(--sp-4);">
+        <div class="card" style="padding: var(--sp-6); background: var(--clr-surface); border: 1px solid var(--clr-border);">
+          <h3 style="font-size: var(--text-lg); color: var(--clr-ink); margin-bottom: var(--sp-2);">Root &amp; Self Protection</h3>
+          <p style="color: var(--clr-ink-mid); font-size: var(--text-sm); line-height: 1.6;">
+            Target directories are checked against root drives (<code style="font-family: var(--font-mono);">C:\</code>, <code style="font-family: var(--font-mono);">/</code>), parent directories, and the sorter’s own directory. Any dangerous target is immediately aborted.
+          </p>
+        </div>
+
+        <div class="card" style="padding: var(--sp-6); background: var(--clr-surface); border: 1px solid var(--clr-border);">
+          <h3 style="font-size: var(--text-lg); color: var(--clr-ink); margin-bottom: var(--sp-2);">Non-Destructive Collision Resolution</h3>
+          <p style="color: var(--clr-ink-mid); font-size: var(--text-sm); line-height: 1.6;">
+            If <code style="font-family: var(--font-mono);">report.pdf</code> already exists inside the Documents directory, the incoming file is systematically renamed to <code style="font-family: var(--font-mono);">report_1.pdf</code>, <code style="font-family: var(--font-mono);">report_2.pdf</code>, etc. Zero overwrites.
+          </p>
+        </div>
+
+        <div class="card" style="padding: var(--sp-6); background: var(--clr-surface); border: 1px solid var(--clr-border);">
+          <h3 style="font-size: var(--text-lg); color: var(--clr-ink); margin-bottom: var(--sp-2);">Dry-Run Guarantee</h3>
+          <p style="color: var(--clr-ink-mid); font-size: var(--text-sm); line-height: 1.6;">
+            When executed without <code style="font-family: var(--font-mono);">--confirm</code>, the engine scans and constructs the classification plan without performing any <code style="font-family: var(--font-mono);">shutil.move()</code> operations.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Validation & Testing -->
+    <section class="section" id="validation" style="padding-top: var(--sp-6); padding-bottom: var(--sp-12);">
+      <h2 class="section-title" style="font-size: var(--text-2xl); margin-bottom: var(--sp-3);">Validation & Test Coverage</h2>
+      <div class="table-container" style="overflow-x: auto; background: var(--clr-surface); border-radius: var(--radius-md); border: 1px solid var(--clr-border);">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: var(--text-sm);">
+          <thead>
+            <tr style="background: var(--clr-surface-alt); border-bottom: 2px solid var(--clr-border);">
+              <th style="padding: var(--sp-3) var(--sp-4);">Test Case Class</th>
+              <th style="padding: var(--sp-3) var(--sp-4);">Scenario Tested</th>
+              <th style="padding: var(--sp-3) var(--sp-4);">Expected Outcome</th>
+              <th style="padding: var(--sp-3) var(--sp-4);">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--clr-border-light);">
+              <td style="padding: var(--sp-3) var(--sp-4); font-family: var(--font-mono); font-weight: 600;">TestClassification</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">All 9 extension categories mapped</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">100% correct folder destination mapping</td>
+              <td style="padding: var(--sp-3) var(--sp-4); color: var(--clr-success); font-weight: 700;">PASSED</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--clr-border-light);">
+              <td style="padding: var(--sp-3) var(--sp-4); font-family: var(--font-mono); font-weight: 600;">TestCollisionPolicy</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">Target file with identical name already present</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">Appends _1 suffix; original file preserved untouched</td>
+              <td style="padding: var(--sp-3) var(--sp-4); color: var(--clr-success); font-weight: 700;">PASSED</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--clr-border-light);">
+              <td style="padding: var(--sp-3) var(--sp-4); font-family: var(--font-mono); font-weight: 600;">TestUnsafeTargets</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">Passing root drive or nonexistent folder</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">System raises ValueError and halts execution</td>
+              <td style="padding: var(--sp-3) var(--sp-4); color: var(--clr-success); font-weight: 700;">PASSED</td>
+            </tr>
+            <tr>
+              <td style="padding: var(--sp-3) var(--sp-4); font-family: var(--font-mono); font-weight: 600;">TestDryRun</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">Running sorter with dry_run=True in tempdir</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">File modification timestamps and paths remain unchanged</td>
+              <td style="padding: var(--sp-3) var(--sp-4); color: var(--clr-success); font-weight: 700;">PASSED</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer style="background: var(--clr-surface); border-top: 1px solid var(--clr-border); padding: var(--sp-8) 0; text-align: center; color: var(--clr-ink-muted); font-size: var(--text-sm);">
+    <p>Python Practical Lab — Task 03: Desktop File Sorter &bull; <a href="../index.html" style="color: var(--clr-accent);">Return to Portal</a></p>
+  </footer>
+
+  <script>
+    const CATEGORIES = {
+      "Documents": { icon: "📄", files: [] },
+      "Images": { icon: "🖼️", files: [] },
+      "Videos": { icon: "🎬", files: [] },
+      "Audio": { icon: "🎵", files: [] },
+      "Archives": { icon: "📦", files: [] },
+      "Code": { icon: "💻", files: [] },
+      "Spreadsheets": { icon: "📊", files: [] },
+      "Presentations": { icon: "📽️", files: [] },
+      "Other": { icon: "📁", files: [] }
+    };
+
+    const INITIAL_SAMPLE_FILES = [
+      { name: "Project_Proposal.docx", cat: "Documents" },
+      { name: "Executive_Summary.pdf", cat: "Documents" },
+      { name: "Executive_Summary.pdf", cat: "Documents", isCollision: true },
+      { name: "hero_banner.png", cat: "Images" },
+      { name: "architecture_diagram.svg", cat: "Images" },
+      { name: "demo_walkthrough.mp4", cat: "Videos" },
+      { name: "podcast_interview.mp3", cat: "Audio" },
+      { name: "backup_bundle.zip", cat: "Archives" },
+      { name: "main_service.py", cat: "Code" },
+      { name: "styles.css", cat: "Code" },
+      { name: "quarterly_budget.xlsx", cat: "Spreadsheets" },
+      { name: "investor_deck.pptx", cat: "Presentations" },
+      { name: "notes.unknown", cat: "Other" }
+    ];
+
+    const bucketsGrid = document.getElementById("buckets-grid");
+    const logEl = document.getElementById("virtual-log");
+
+    function renderBuckets() {
+      bucketsGrid.innerHTML = "";
+      Object.entries(CATEGORIES).forEach(([name, data]) => {
+        const bucket = document.createElement("div");
+        bucket.className = "category-bucket";
+        bucket.innerHTML = `
+          <div class="category-bucket-header">
+            <span class="bucket-name">${data.icon} ${name}</span>
+            <span class="bucket-count">${data.files.length}</span>
+          </div>
+          <div class="bucket-files">
+            ${data.files.map(f => `<span class="file-chip ${f.isCollision ? 'collision' : ''}">${f.name}</span>`).join("")}
+          </div>
+        `;
+        bucketsGrid.appendChild(bucket);
+      });
+    }
+
+    function log(msg) {
+      logEl.innerHTML += "\n" + msg;
+      logEl.scrollTop = logEl.scrollHeight;
+    }
+
+    document.getElementById("btn-run-simulation").addEventListener("click", () => {
+      const isDry = document.getElementById("mode-dry").checked;
+      log(`\n========================================`);
+      log(`[EXEC] Starting organization process... Mode: ${isDry ? "DRY-RUN (PREVIEW ONLY)" : "CONFIRMED MOVE"}`);
+
+      // Clear files
+      Object.keys(CATEGORIES).forEach(k => CATEGORIES[k].files = []);
+
+      INITIAL_SAMPLE_FILES.forEach(item => {
+        let finalName = item.name;
+        if (item.isCollision) {
+          finalName = item.name.replace(".", "_1.");
+          log(`[COLLISION] Duplicate '${item.name}' detected in ${item.cat}. Renamed safely to '${finalName}'`);
+        }
+
+        if (isDry) {
+          log(`[DRY-RUN] Would move: ${item.name} -> ${item.cat}/${finalName}`);
+        } else {
+          CATEGORIES[item.cat].files.push({ name: finalName, isCollision: item.isCollision });
+          log(`[MOVED] ${item.name} -> ${item.cat}/${finalName}`);
+        }
+      });
+
+      if (isDry) {
+        log(`[SUMMARY] Dry-run finished. 13 files inspected, 0 files moved.`);
+      } else {
+        log(`[SUMMARY] Organization complete. 13 files sorted across 9 categories. Log persisted.`);
+      }
+
+      renderBuckets();
+    });
+
+    document.getElementById("btn-reset-simulation").addEventListener("click", () => {
+      Object.keys(CATEGORIES).forEach(k => CATEGORIES[k].files = []);
+      logEl.innerHTML = "[INFO] Simulator reset. Ready for next simulation.";
+      renderBuckets();
+    });
+
+    renderBuckets();
+  </script>
+</body>
+</html>

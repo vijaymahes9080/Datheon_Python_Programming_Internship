@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio Market Journal — Terminal stock portfolio tracker with live web showcase, S&P 500 validation, and gain/loss analytics.">
+  <title>Portfolio Market Journal — Python Practical Lab</title>
+  <link rel="stylesheet" href="../web/styles/main.css">
+  <style>
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: var(--sp-8);
+      margin-top: var(--sp-6);
+    }
+    @media (max-width: 900px) {
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .form-group {
+      margin-bottom: var(--sp-4);
+    }
+    .form-group label {
+      display: block;
+      font-size: var(--text-xs);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--clr-ink-mid);
+      margin-bottom: var(--sp-1);
+    }
+    .form-input {
+      width: 100%;
+      padding: var(--sp-2) var(--sp-3);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-sm);
+      background: white;
+      color: var(--clr-ink);
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: var(--clr-accent);
+      box-shadow: 0 0 0 2px var(--clr-accent-bg);
+    }
+    .summary-cards-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: var(--sp-4);
+      margin-bottom: var(--sp-6);
+    }
+    .metric-card {
+      background: var(--clr-surface);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-md);
+      padding: var(--sp-4);
+    }
+    .metric-label {
+      font-size: var(--text-xs);
+      color: var(--clr-ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--sp-1);
+    }
+    .metric-val {
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      font-family: var(--font-mono);
+      color: var(--clr-ink);
+    }
+    .metric-val.positive { color: var(--clr-success); }
+    .metric-val.negative { color: var(--clr-accent); }
+    .metric-val.partial { color: var(--clr-warning); }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav-bar" aria-label="Main Navigation">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo" id="nav-brand">
+        <span class="logo-icon" aria-hidden="true">◀</span>
+        <span class="logo-text">Python Practical Lab</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html" class="nav-link">← Portal Home</a>
+        <a href="#interactive-tracker" class="nav-link">Live Tracker</a>
+        <a href="#cli-guide" class="nav-link">CLI Guide</a>
+        <a href="#architecture" class="nav-link">Architecture</a>
+        <a href="#validation" class="nav-link">Validation</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-container">
+    <!-- Breadcrumb -->
+    <div style="padding: var(--sp-6) 0 var(--sp-2);">
+      <p style="color: var(--clr-ink-muted); font-size: var(--text-sm);">
+        <a href="../index.html" style="color: var(--clr-accent); text-decoration: none;">Projects</a>
+        &nbsp;/&nbsp; Task 02: Portfolio Market Journal
+      </p>
+    </div>
+
+    <!-- Hero Header -->
+    <header class="section-header" style="text-align: left; margin-bottom: var(--sp-8);">
+      <div style="display: flex; gap: var(--sp-2); align-items: center; margin-bottom: var(--sp-3);">
+        <span class="badge" style="background: var(--clr-accent-bg); color: var(--clr-accent); font-weight: 700;">Task 02</span>
+        <span class="badge" style="background: #E6F4EA; color: var(--clr-success); font-weight: 600;">Verified Standard Library</span>
+      </div>
+      <h1 class="section-title" style="font-size: var(--text-4xl); margin-bottom: var(--sp-3);">Portfolio Market Journal</h1>
+      <p class="section-lead">
+        Terminal stock portfolio performance tracker with gain/loss analytics, transparent price sourcing,
+        strict S&amp;P 500 constituent ticker verification, and timestamped CSV reporting.
+      </p>
+    </header>
+
+    <!-- Interactive Portfolio Simulator -->
+    <section class="section" id="interactive-tracker" style="padding-top: 0;">
+      <div class="card" style="padding: var(--sp-8); border: 1px solid var(--clr-border);">
+        <div style="margin-bottom: var(--sp-4);">
+          <h2 style="font-size: var(--text-2xl); color: var(--clr-ink); margin-bottom: var(--sp-1);">Interactive Portfolio Simulator</h2>
+          <p style="color: var(--clr-ink-mid); font-size: var(--text-sm);">
+            Test adding equity holdings, unpriced security handling, and gain/loss calculations.
+          </p>
+        </div>
+
+        <!-- Metric KPI Cards -->
+        <div class="summary-cards-row">
+          <div class="metric-card">
+            <div class="metric-label">Total Invested</div>
+            <div id="stat-invested" class="metric-val">$0.00</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Current Market Value</div>
+            <div id="stat-current" class="metric-val">$0.00</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Unrealized Gain / Loss</div>
+            <div id="stat-gainloss" class="metric-val">$0.00</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Total Return %</div>
+            <div id="stat-pct" class="metric-val">0.00%</div>
+          </div>
+        </div>
+
+        <div class="portfolio-grid">
+          <!-- Left: Add Position Form -->
+          <div style="background: var(--clr-surface); padding: var(--sp-6); border-radius: var(--radius-md); border: 1px solid var(--clr-border-light);">
+            <h3 style="font-size: var(--text-md); color: var(--clr-ink); margin-bottom: var(--sp-4); font-weight: 600;">
+              ➕ Add Stock Position
+            </h3>
+
+            <form id="portfolio-form">
+              <div class="form-group">
+                <label for="input-ticker">Ticker Symbol (S&P 500)</label>
+                <input type="text" id="input-ticker" class="form-input" placeholder="e.g. AAPL, NVDA, MSFT" required uppercase>
+                <small id="ticker-company-label" style="font-size: var(--text-xs); color: var(--clr-ink-muted); display: block; margin-top: 4px;"></small>
+              </div>
+
+              <div class="form-group">
+                <label for="input-shares">Shares (Units)</label>
+                <input type="number" step="any" min="0.001" id="input-shares" class="form-input" placeholder="e.g. 10" required>
+              </div>
+
+              <div class="form-group">
+                <label for="input-cost">Purchase Price ($ / Share)</label>
+                <input type="number" step="0.01" min="0.01" id="input-cost" class="form-input" placeholder="e.g. 150.00" required>
+              </div>
+
+              <div class="form-group">
+                <label for="input-current">Current Price ($ / Share — Optional)</label>
+                <input type="number" step="0.01" min="0.01" id="input-current" class="form-input" placeholder="Leave empty if unpriced">
+                <small style="color: var(--clr-ink-muted); font-size: 11px;">If empty, tagged as UNAVAILABLE without guessing.</small>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: var(--sp-2); cursor: pointer;">
+                Add Position to Journal
+              </button>
+            </form>
+          </div>
+
+          <!-- Right: Position Table -->
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--sp-2);">
+              <h3 style="font-size: var(--text-md); color: var(--clr-ink); font-weight: 600;">
+                Current Holdings (<span id="holdings-count">0</span>)
+              </h3>
+              <button id="btn-sample-data" class="btn btn-secondary" style="font-size: var(--text-xs); padding: 4px 10px; cursor: pointer;">
+                Load Sample Holdings
+              </button>
+            </div>
+
+            <div class="table-container" style="overflow-x: auto; background: white; border: 1px solid var(--clr-border); border-radius: var(--radius-md);">
+              <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: var(--text-sm);">
+                <thead>
+                  <tr style="background: var(--clr-surface-alt); border-bottom: 2px solid var(--clr-border);">
+                    <th style="padding: var(--sp-2) var(--sp-3);">Ticker</th>
+                    <th style="padding: var(--sp-2) var(--sp-3);">Shares</th>
+                    <th style="padding: var(--sp-2) var(--sp-3);">Buy Price</th>
+                    <th style="padding: var(--sp-2) var(--sp-3);">Current Price</th>
+                    <th style="padding: var(--sp-2) var(--sp-3);">Gain / Loss</th>
+                    <th style="padding: var(--sp-2) var(--sp-3); text-align: center;">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="holdings-tbody">
+                  <tr>
+                    <td colspan="6" style="padding: var(--sp-6); text-align: center; color: var(--clr-ink-muted);">
+                      No positions recorded yet. Use the form on the left or click "Load Sample Holdings".
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div id="valuation-warning" style="display: none; margin-top: var(--sp-3); padding: var(--sp-2) var(--sp-4); background: #FFFBEB; border: 1px solid #FCD34D; border-radius: var(--radius-sm); font-size: var(--text-xs); color: #92400E;">
+              ⚠️ <strong>PARTIAL VALUATION:</strong> One or more positions do not have current market prices. Gain/Loss reflects priced assets only.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Terminal Execution Guide -->
+    <section class="section" id="cli-guide" style="padding-top: var(--sp-6);">
+      <h2 class="section-title" style="font-size: var(--text-2xl); margin-bottom: var(--sp-3);">Terminal Execution Guide</h2>
+      <p style="color: var(--clr-ink-mid); margin-bottom: var(--sp-4);">
+        Full CLI application with interactive prompts, ticker verification against S&amp;P 500 constituents, and CSV export.
+      </p>
+
+      <div style="background: #111029; border-radius: var(--radius-lg); padding: var(--sp-6); color: #E2E8F0; font-family: var(--font-mono); font-size: var(--text-sm);">
+        <p style="color: #94A3B8; margin-bottom: var(--sp-2);"># 1. Switch into the portfolio tracker directory</p>
+        <p style="color: #38BDF8; margin-bottom: var(--sp-4);">cd d:\intership\python\vj\market_journal</p>
+        <p style="color: #94A3B8; margin-bottom: var(--sp-2);"># 2. Launch the tracker interactive terminal app</p>
+        <p style="color: #4ADE80; margin-bottom: var(--sp-4);">python tracker.py</p>
+        <p style="color: #94A3B8; margin-bottom: var(--sp-2);"># 3. Run automated financial calculations unit test suite</p>
+        <p style="color: #FACC15;">python -m unittest tests/test_tracker.py -v</p>
+      </div>
+    </section>
+
+    <!-- Architecture & Implementation Details -->
+    <section class="section" id="architecture" style="padding-top: var(--sp-6);">
+      <h2 class="section-title" style="font-size: var(--text-2xl); margin-bottom: var(--sp-3);">Architectural Highlights</h2>
+      <div class="grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--sp-6); margin-top: var(--sp-4);">
+        <div class="card" style="padding: var(--sp-6); background: var(--clr-surface); border: 1px solid var(--clr-border);">
+          <h3 style="font-size: var(--text-lg); color: var(--clr-ink); margin-bottom: var(--sp-2);">Constituents CSV Ingestion</h3>
+          <p style="color: var(--clr-ink-mid); font-size: var(--text-sm); line-height: 1.6;">
+            Loads <code style="font-family: var(--font-mono); color: var(--clr-accent);">resources/constituents.csv</code> containing 500+ official S&amp;P 500 tickers, company names, and GICS sectors. Validates symbols instantaneously via in-memory set lookups.
+          </p>
+        </div>
+
+        <div class="card" style="padding: var(--sp-6); background: var(--clr-surface); border: 1px solid var(--clr-border);">
+          <h3 style="font-size: var(--text-lg); color: var(--clr-ink); margin-bottom: var(--sp-2);">Transparent Pricing Model</h3>
+          <p style="color: var(--clr-ink-mid); font-size: var(--text-sm); line-height: 1.6;">
+            Zero hallucinated or fabricated numbers. Positions without a manually supplied current price are marked as <code style="font-family: var(--font-mono); color: var(--clr-warning);">UNAVAILABLE</code>, and overall totals are flagged as partial valuation.
+          </p>
+        </div>
+
+        <div class="card" style="padding: var(--sp-6); background: var(--clr-surface); border: 1px solid var(--clr-border);">
+          <h3 style="font-size: var(--text-lg); color: var(--clr-ink); margin-bottom: var(--sp-2);">Audit Trail CSV Export</h3>
+          <p style="color: var(--clr-ink-mid); font-size: var(--text-sm); line-height: 1.6;">
+            Generates standardized, timestamped CSV records using Python's standard <code style="font-family: var(--font-mono);">csv.writer</code>, complete with calculated fields and price sourcing tags.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Validation & Testing -->
+    <section class="section" id="validation" style="padding-top: var(--sp-6); padding-bottom: var(--sp-12);">
+      <h2 class="section-title" style="font-size: var(--text-2xl); margin-bottom: var(--sp-3);">Validation & Test Coverage</h2>
+      <div class="table-container" style="overflow-x: auto; background: var(--clr-surface); border-radius: var(--radius-md); border: 1px solid var(--clr-border);">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: var(--text-sm);">
+          <thead>
+            <tr style="background: var(--clr-surface-alt); border-bottom: 2px solid var(--clr-border);">
+              <th style="padding: var(--sp-3) var(--sp-4);">Test Case Class</th>
+              <th style="padding: var(--sp-3) var(--sp-4);">Scenario Tested</th>
+              <th style="padding: var(--sp-3) var(--sp-4);">Expected Outcome</th>
+              <th style="padding: var(--sp-3) var(--sp-4);">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--clr-border-light);">
+              <td style="padding: var(--sp-3) var(--sp-4); font-family: var(--font-mono); font-weight: 600;">TestCalculations</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">Positive gain, loss, break-even, floating-point rounding</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">Precision matches formulas: (val - cost)</td>
+              <td style="padding: var(--sp-3) var(--sp-4); color: var(--clr-success); font-weight: 700;">PASSED</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--clr-border-light);">
+              <td style="padding: var(--sp-3) var(--sp-4); font-family: var(--font-mono); font-weight: 600;">TestUnpricedHolding</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">Position created without current market quote</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">Value labeled UNAVAILABLE, not zeroed out</td>
+              <td style="padding: var(--sp-3) var(--sp-4); color: var(--clr-success); font-weight: 700;">PASSED</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--clr-border-light);">
+              <td style="padding: var(--sp-3) var(--sp-4); font-family: var(--font-mono); font-weight: 600;">TestPortfolioTotals</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">Aggregating mixed priced and unpriced holdings</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">is_partial flag correctly set to True</td>
+              <td style="padding: var(--sp-3) var(--sp-4); color: var(--clr-success); font-weight: 700;">PASSED</td>
+            </tr>
+            <tr>
+              <td style="padding: var(--sp-3) var(--sp-4); font-family: var(--font-mono); font-weight: 600;">TestCSVExport</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">Write portfolio to temporary CSV file and reload</td>
+              <td style="padding: var(--sp-3) var(--sp-4);">All headers, rows, and datatypes match</td>
+              <td style="padding: var(--sp-3) var(--sp-4); color: var(--clr-success); font-weight: 700;">PASSED</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer style="background: var(--clr-surface); border-top: 1px solid var(--clr-border); padding: var(--sp-8) 0; text-align: center; color: var(--clr-ink-muted); font-size: var(--text-sm);">
+    <p>Python Practical Lab — Task 02: Portfolio Market Journal &bull; <a href="../index.html" style="color: var(--clr-accent);">Return to Portal</a></p>
+  </footer>
+
+  <script>
+    const KNOWN_TICKERS = {
+      "AAPL": "Apple Inc.",
+      "MSFT": "Microsoft Corporation",
+      "NVDA": "NVIDIA Corporation",
+      "AMZN": "Amazon.com Inc.",
+      "GOOGL": "Alphabet Inc.",
+      "META": "Meta Platforms Inc.",
+      "TSLA": "Tesla Inc.",
+      "BRK.B": "Berkshire Hathaway Inc.",
+      "JPM": "JPMorgan Chase & Co."
+    };
+
+    let holdings = [];
+
+    const tickerInput = document.getElementById("input-ticker");
+    const tickerCompanyLabel = document.getElementById("ticker-company-label");
+    const sharesInput = document.getElementById("input-shares");
+    const costInput = document.getElementById("input-cost");
+    const currentInput = document.getElementById("input-current");
+    const form = document.getElementById("portfolio-form");
+    const tbody = document.getElementById("holdings-tbody");
+    const countLabel = document.getElementById("holdings-count");
+    const warningEl = document.getElementById("valuation-warning");
+
+    const statInvested = document.getElementById("stat-invested");
+    const statCurrent = document.getElementById("stat-current");
+    const statGainLoss = document.getElementById("stat-gainloss");
+    const statPct = document.getElementById("stat-pct");
+
+    tickerInput.addEventListener("input", (e) => {
+      const val = e.target.value.toUpperCase();
+      tickerInput.value = val;
+      if (KNOWN_TICKERS[val]) {
+        tickerCompanyLabel.textContent = "✓ S&P 500: " + KNOWN_TICKERS[val];
+        tickerCompanyLabel.style.color = "var(--clr-success)";
+      } else if (val.length >= 2) {
+        tickerCompanyLabel.textContent = "ℹ Ticker accepted (custom or S&P listed)";
+        tickerCompanyLabel.style.color = "var(--clr-ink-muted)";
+      } else {
+        tickerCompanyLabel.textContent = "";
+      }
+    });
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const ticker = tickerInput.value.trim().toUpperCase();
+      const shares = parseFloat(sharesInput.value);
+      const buyPrice = parseFloat(costInput.value);
+      const curPrice = currentInput.value.trim() !== "" ? parseFloat(currentInput.value) : null;
+
+      if (!ticker || isNaN(shares) || isNaN(buyPrice)) return;
+
+      holdings.push({
+        id: Date.now(),
+        ticker,
+        shares,
+        buyPrice,
+        curPrice
+      });
+
+      form.reset();
+      tickerCompanyLabel.textContent = "";
+      renderHoldings();
+    });
+
+    document.getElementById("btn-sample-data").addEventListener("click", () => {
+      holdings = [
+        { id: 1, ticker: "AAPL", shares: 15, buyPrice: 175.50, curPrice: 228.40 },
+        { id: 2, ticker: "NVDA", shares: 25, buyPrice: 110.00, curPrice: 138.25 },
+        { id: 3, ticker: "MSFT", shares: 10, buyPrice: 420.00, curPrice: 415.60 },
+        { id: 4, ticker: "JPM",  shares: 8,  buyPrice: 195.00, curPrice: null } // unpriced
+      ];
+      renderHoldings();
+    });
+
+    function deleteHolding(id) {
+      holdings = holdings.filter(h => h.id !== id);
+      renderHoldings();
+    }
+
+    function renderHoldings() {
+      countLabel.textContent = holdings.length;
+      tbody.innerHTML = "";
+
+      if (holdings.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="padding: var(--sp-6); text-align: center; color: var(--clr-ink-muted);">No positions recorded yet.</td></tr>`;
+        updateStats(0, 0, 0, 0, false);
+        warningEl.style.display = "none";
+        return;
+      }
+
+      let totalInvested = 0;
+      let totalCurrent = 0;
+      let hasUnpriced = false;
+
+      holdings.forEach(h => {
+        const invested = h.shares * h.buyPrice;
+        totalInvested += invested;
+
+        let curValStr = "UNAVAILABLE";
+        let gainLossStr = "N/A";
+        let gainClass = "";
+
+        if (h.curPrice !== null) {
+          const curVal = h.shares * h.curPrice;
+          totalCurrent += curVal;
+          const gl = curVal - invested;
+          const pct = (gl / invested) * 100;
+          const sign = gl >= 0 ? "+" : "";
+          curValStr = "$" + h.curPrice.toFixed(2);
+          gainLossStr = `${sign}$${gl.toFixed(2)} (${sign}${pct.toFixed(2)}%)`;
+          gainClass = gl >= 0 ? "style='color: var(--clr-success); font-weight: 600;'" : "style='color: var(--clr-accent); font-weight: 600;'";
+        } else {
+          hasUnpriced = true;
+        }
+
+        const tr = document.createElement("tr");
+        tr.style.borderBottom = "1px solid var(--clr-border-light)";
+        tr.innerHTML = `
+          <td style="padding: var(--sp-3); font-family: var(--font-mono); font-weight: 700;">${h.ticker}</td>
+          <td style="padding: var(--sp-3); font-family: var(--font-mono);">${h.shares}</td>
+          <td style="padding: var(--sp-3); font-family: var(--font-mono);">$${h.buyPrice.toFixed(2)}</td>
+          <td style="padding: var(--sp-3); font-family: var(--font-mono);">${curValStr}</td>
+          <td style="padding: var(--sp-3); font-family: var(--font-mono);" ${gainClass}>${gainLossStr}</td>
+          <td style="padding: var(--sp-3); text-align: center;">
+            <button onclick="deleteHolding(${h.id})" style="background: none; border: none; color: var(--clr-accent); cursor: pointer; font-size: var(--text-sm);">✕</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      const totalGain = totalCurrent - totalInvested;
+      const totalPct = totalInvested > 0 ? (totalGain / totalInvested) * 100 : 0;
+      updateStats(totalInvested, totalCurrent, totalGain, totalPct, hasUnpriced);
+      warningEl.style.display = hasUnpriced ? "block" : "none";
+    }
+
+    function updateStats(inv, cur, gl, pct, isPartial) {
+      statInvested.textContent = "$" + inv.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      statCurrent.textContent = "$" + cur.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      
+      const sign = gl >= 0 ? "+" : "";
+      statGainLoss.textContent = `${sign}$${gl.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      statGainLoss.className = isPartial ? "metric-val partial" : (gl >= 0 ? "metric-val positive" : "metric-val negative");
+
+      statPct.textContent = `${sign}${pct.toFixed(2)}%`;
+      statPct.className = isPartial ? "metric-val partial" : (gl >= 0 ? "metric-val positive" : "metric-val negative");
+    }
+  </script>
+</body>
+</html>

@@ -50,7 +50,8 @@ python faq_assistant/assistant.py
 ```
 python-practical-lab/
 ├── index.html                  # Universal web portal (open in browser)
-├── README.md                   # This file
+├── README.md                   # Master project documentation
+├── LICENSE                     # MIT License
 ├── requirements.txt            # Dependency declaration (stdlib only)
 ├── .gitignore
 │
@@ -132,6 +133,20 @@ The Portfolio Market Journal application is for **educational purposes only** an
 
 ## Documentation
 
-- [Design Notes](documentation/DESIGN.md)
-- [Data Sources](documentation/DATA_SOURCES.md)
-- [Validation Report](documentation/VALIDATION.md)
+### Technical Architecture & Standards
+- [Visual & Design System](documentation/DESIGN.md)
+- [Dataset Sources & Provenance](documentation/DATA_SOURCES.md)
+- [Validation & Verification Report](documentation/VALIDATION.md)
+
+### Application User Guides
+- [Hangman Word Challenge Manual](word_challenge/README.md)
+- [Portfolio Market Journal Guide](market_journal/README.md)
+- [Desktop File Sorter Safety Manual](desktop_sorter/README.md)
+- [FAQ Conversation Assistant Architecture](faq_assistant/README.md)
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE) — see the LICENSE file for details.
+

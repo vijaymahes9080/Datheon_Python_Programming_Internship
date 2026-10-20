@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Python Practical Lab — Four independent Python applications exploring game logic, portfolio analysis, filesystem automation, and conversational systems.">
+  <title>Python Practical Lab — Independent Project Suite</title>
+  <link rel="stylesheet" href="web/styles/main.css">
+</head>
+<body>
+
+  <!-- ══ NAVIGATION ═══════════════════════════════════════════════════════ -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand" aria-label="Python Practical Lab home">
+        <div class="nav-brand-icon" aria-hidden="true">PL</div>
+        Python Practical Lab
+      </a>
+      <ul class="nav-links">
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#tech-overview">Tech Overview</a></li>
+        <li><a href="#data-sources">Data Sources</a></li>
+        <li><a href="#documentation">Documentation</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ══ HERO ═══════════════════════════════════════════════════════════ -->
+    <section class="hero" id="hero" data-section aria-labelledby="hero-title">
+      <div class="container">
+        <div class="hero-label" aria-label="Python Internship Project">
+          <span>🐍</span> Python Internship Assignment
+        </div>
+        <h1 class="hero-title" id="hero-title">
+          Python<br><span>Practical Lab</span>
+        </h1>
+        <p class="hero-description">
+          Four independent Python applications exploring game logic, portfolio analysis,
+          filesystem automation, and conversational systems.
+        </p>
+        <div class="hero-meta">
+          <span class="meta-chip">
+            <span class="meta-chip-dot"></span>
+            Standard Library Only
+          </span>
+          <span class="meta-chip">
+            <span class="meta-chip-dot"></span>
+            4 Applications
+          </span>
+          <span class="meta-chip">
+            <span class="meta-chip-dot"></span>
+            Datasets Verified
+          </span>
+          <span class="meta-chip">
+            <span class="meta-chip-dot"></span>
+            Tests Included
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ PROJECTS ═══════════════════════════════════════════════════════ -->
+    <section class="section" id="projects" data-section aria-labelledby="projects-title">
+      <div class="container">
+        <header class="section-header">
+          <span class="section-eyebrow">Applications</span>
+          <h2 class="section-title" id="projects-title">Four Independent Projects</h2>
+          <p class="section-subtitle">
+            Each application is self-contained, independently runnable from a terminal,
+            and comes with its own dataset, tests, and documentation.
+          </p>
+        </header>
+
+        <div class="cards-grid">
+
+          <!-- Card 1 — Hangman -->
+          <article class="project-card" id="card-hangman">
+            <div class="card-header">
+              <span class="card-number">01</span>
+              <div class="card-icon" aria-hidden="true">🎯</div>
+            </div>
+            <h3 class="card-title">Hangman Word Challenge</h3>
+            <p class="card-purpose">
+              Terminal word-guessing game with ASCII gallows art, powered by a
+              9,894-word Google English dataset.
+            </p>
+            <ul class="card-capabilities">
+              <li>Random word selection from validated dataset</li>
+              <li>7-stage ASCII gallows with progressive drawing</li>
+              <li>Six-error limit with duplicate-guess protection</li>
+              <li>Victory/defeat screens and replay support</li>
+            </ul>
+            <div class="card-tech">
+              <span class="tech-tag">python</span>
+              <span class="tech-tag">random</span>
+              <span class="tech-tag">pathlib</span>
+              <span class="tech-tag">unittest</span>
+            </div>
+            <a href="word_challenge/index.htm" class="card-link" id="link-hangman">
+              View Project →
+            </a>
+          </article>
+
+          <!-- Card 2 — Portfolio -->
+          <article class="project-card" id="card-portfolio">
+            <div class="card-header">
+              <span class="card-number">02</span>
+              <div class="card-icon" aria-hidden="true">📈</div>
+            </div>
+            <h3 class="card-title">Portfolio Market Journal</h3>
+            <p class="card-purpose">
+              Terminal portfolio tracker with gain/loss analysis, ticker validation
+              against S&amp;P 500 data, and transparent price sourcing.
+            </p>
+            <ul class="card-capabilities">
+              <li>Multi-position entry with optional current price</li>
+              <li>Ticker validation against S&amp;P 500 constituents CSV</li>
+              <li>Gain/loss calculations with partial-valuation warnings</li>
+              <li>Timestamped CSV report export</li>
+            </ul>
+            <div class="card-tech">
+              <span class="tech-tag">python</span>
+              <span class="tech-tag">csv</span>
+              <span class="tech-tag">datetime</span>
+              <span class="tech-tag">unittest</span>
+            </div>
+            <a href="market_journal/index.htm" class="card-link" id="link-portfolio">
+              View Project →
+            </a>
+          </article>
+
+          <!-- Card 3 — File Sorter -->
+          <article class="project-card" id="card-sorter">
+            <div class="card-header">
+              <span class="card-number">03</span>
+              <div class="card-icon" aria-hidden="true">🗂️</div>
+            </div>
+            <h3 class="card-title">Desktop File Sorter</h3>
+            <p class="card-purpose">
+              Safe, extension-based file organizer with dry-run preview, collision
+              protection, and explicit confirmation before any file is moved.
+            </p>
+            <ul class="card-capabilities">
+              <li>9 categories: Documents, Images, Videos, Audio, Archives…</li>
+              <li>Dry-run preview mode — moves nothing</li>
+              <li>Filename collision renamed, never silently overwritten</li>
+              <li>Unsafe targets (roots, script dirs) rejected</li>
+            </ul>
+            <div class="card-tech">
+              <span class="tech-tag">python</span>
+              <span class="tech-tag">shutil</span>
+              <span class="tech-tag">pathlib</span>
+              <span class="tech-tag">argparse</span>
+            </div>
+            <a href="desktop_sorter/index.htm" class="card-link" id="link-sorter">
+              View Project →
+            </a>
+          </article>
+
+          <!-- Card 4 — FAQ Assistant -->
+          <article class="project-card" id="card-chatbot">
+            <div class="card-header">
+              <span class="card-number">04</span>
+              <div class="card-icon" aria-hidden="true">💬</div>
+            </div>
+            <h3 class="card-title">FAQ Conversation Assistant</h3>
+            <p class="card-purpose">
+              Rule-based chatbot grounded in a real FAQ JSON dataset. Uses
+              Jaccard-similarity keyword matching for intent classification.
+            </p>
+            <ul class="card-capabilities">
+              <li>Answers from the actual dataset — no fabricated facts</li>
+              <li>Intent pipeline: exit → greeting → FAQ match → help → fallback</li>
+              <li>Input normalisation: casing, whitespace, stopwords</li>
+              <li>Graceful handling of missing/malformed JSON</li>
+            </ul>
+            <div class="card-tech">
+              <span class="tech-tag">python</span>
+              <span class="tech-tag">json</span>
+              <span class="tech-tag">re</span>
+              <span class="tech-tag">unittest</span>
+            </div>
+            <a href="faq_assistant/index.htm" class="card-link" id="link-chatbot">
+              View Project →
+            </a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ TECH OVERVIEW ══════════════════════════════════════════════════ -->
+    <section class="section" id="tech-overview" data-section aria-labelledby="tech-title">
+      <div class="container">
+        <header class="section-header">
+          <span class="section-eyebrow">Technology</span>
+          <h2 class="section-title" id="tech-title">Architecture &amp; Technology Stack</h2>
+          <p class="section-subtitle">
+            All applications use Python's standard library exclusively.
+            No paid services, no live network dependencies for core functionality.
+          </p>
+        </header>
+
+        <table class="tech-table" aria-label="Technology stack overview">
+          <thead>
+            <tr>
+              <th scope="col">Application</th>
+              <th scope="col">Entry Point</th>
+              <th scope="col">Key Modules</th>
+              <th scope="col">External Data</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Hangman Word Challenge</td>
+              <td><code>word_challenge/game.py</code></td>
+              <td><code>random, pathlib, sys</code></td>
+              <td>Google 10k English (TXT, 75 KB)</td>
+            </tr>
+            <tr>
+              <td>Portfolio Market Journal</td>
+              <td><code>market_journal/tracker.py</code></td>
+              <td><code>csv, json, datetime, pathlib</code></td>
+              <td>S&amp;P 500 Constituents (CSV, 503 rows)</td>
+            </tr>
+            <tr>
+              <td>Desktop File Sorter</td>
+              <td><code>desktop_sorter/sorter.py</code></td>
+              <td><code>shutil, pathlib, argparse, logging</code></td>
+              <td>None — filesystem only</td>
+            </tr>
+            <tr>
+              <td>FAQ Conversation Assistant</td>
+              <td><code>faq_assistant/assistant.py</code></td>
+              <td><code>json, re, pathlib, sys</code></td>
+              <td>FAQ JSON (3 entries, 5 greetings)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="margin-top:var(--sp-8)">
+          <h3 style="font-size:var(--text-lg);font-weight:var(--weight-semi);color:var(--clr-ink);margin-bottom:var(--sp-4);">
+            Running the Applications
+          </h3>
+          <div class="run-box">
+            <div class="run-box-header">
+              <div class="terminal-dots">
+                <span class="dot-r"></span>
+                <span class="dot-y"></span>
+                <span class="dot-g"></span>
+              </div>
+              Terminal — from project root
+            </div>
+            <pre><span class="prompt">$</span> <span class="cmd">python word_challenge/game.py</span>
+<span class="comment"># Start the Hangman game</span>
+
+<span class="prompt">$</span> <span class="cmd">python market_journal/tracker.py</span>
+<span class="comment"># Start the Portfolio Tracker</span>
+
+<span class="prompt">$</span> <span class="cmd">python desktop_sorter/sorter.py --target ~/Downloads --dry-run</span>
+<span class="comment"># Preview file organisation (no files moved)</span>
+
+<span class="prompt">$</span> <span class="cmd">python desktop_sorter/sorter.py --target ~/Downloads --confirm</span>
+<span class="comment"># Execute sort with confirmation prompt</span>
+
+<span class="prompt">$</span> <span class="cmd">python faq_assistant/assistant.py</span>
+<span class="comment"># Start the FAQ chatbot</span></pre>
+          </div>
+
+          <h3 style="font-size:var(--text-lg);font-weight:var(--weight-semi);color:var(--clr-ink);margin:var(--sp-8) 0 var(--sp-4);">
+            Running Tests
+          </h3>
+          <div class="run-box">
+            <div class="run-box-header">
+              <div class="terminal-dots">
+                <span class="dot-r"></span>
+                <span class="dot-y"></span>
+                <span class="dot-g"></span>
+              </div>
+              unittest — from project root
+            </div>
+            <pre><span class="prompt">$</span> <span class="cmd">python -m unittest discover word_challenge/tests -v</span>
+<span class="prompt">$</span> <span class="cmd">python -m unittest discover market_journal/tests -v</span>
+<span class="prompt">$</span> <span class="cmd">python -m unittest discover desktop_sorter/tests -v</span>
+<span class="prompt">$</span> <span class="cmd">python -m unittest discover faq_assistant/tests -v</span></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ DATA SOURCES ═══════════════════════════════════════════════════ -->
+    <section class="section" id="data-sources" data-section aria-labelledby="data-title">
+      <div class="container">
+        <header class="section-header">
+          <span class="section-eyebrow">Datasets</span>
+          <h2 class="section-title" id="data-title">Data Sources &amp; Availability</h2>
+          <p class="section-subtitle">
+            All datasets were downloaded independently from the original public URLs.
+            No data has been fabricated. See
+            <a href="documentation/DATA_SOURCES.md">DATA_SOURCES.md</a>
+            for full details.
+          </p>
+        </header>
+
+        <div class="datasource-list">
+
+          <div class="datasource-item">
+            <span class="ds-task-badge">T1</span>
+            <div class="ds-info">
+              <div class="ds-name">Google 10,000 English Words (no swears)</div>
+              <div class="ds-url">
+                <a href="https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english-no-swears.txt"
+                   target="_blank" rel="noopener">
+                  github.com/first20hours/google-10000-english
+                </a>
+              </div>
+              <div style="margin-top:var(--sp-1);font-size:var(--text-xs);color:var(--clr-ink-muted);">
+                9,894 words · 75 KB · TXT · Saved as <code>word_challenge/resources/words.txt</code>
+              </div>
+            </div>
+            <span class="status-badge ok">✓ Downloaded</span>
+          </div>
+
+          <div class="datasource-item">
+            <span class="ds-task-badge">T2</span>
+            <div class="ds-info">
+              <div class="ds-name">S&amp;P 500 Constituents</div>
+              <div class="ds-url">
+                <a href="https://raw.githubusercontent.com/datasets/s-and-p-500-companies/master/data/constituents.csv"
+                   target="_blank" rel="noopener">
+                  github.com/datasets/s-and-p-500-companies
+                </a>
+              </div>
+              <div style="margin-top:var(--sp-1);font-size:var(--text-xs);color:var(--clr-ink-muted);">
+                503 tickers · 53 KB · CSV · Ticker validation only — not live prices
+              </div>
+            </div>
+            <span class="status-badge ok">✓ Downloaded</span>
+          </div>
+
+          <div class="datasource-item">
+            <span class="ds-task-badge">T3</span>
+            <div class="ds-info">
+              <div class="ds-name">Python shutil Documentation (reference)</div>
+              <div class="ds-url">
+                <a href="https://docs.python.org/3/library/shutil.html"
+                   target="_blank" rel="noopener">
+                  docs.python.org/3/library/shutil.html
+                </a>
+              </div>
+              <div style="margin-top:var(--sp-1);font-size:var(--text-xs);color:var(--clr-ink-muted);">
+                Consulted for safe file operations · No file download required
+              </div>
+            </div>
+            <span class="status-badge ok">✓ Reviewed</span>
+          </div>
+
+          <div class="datasource-item">
+            <span class="ds-task-badge">T4</span>
+            <div class="ds-info">
+              <div class="ds-name">Sample FAQ JSON</div>
+              <div class="ds-url">
+                <a href="https://www.datheon.in/datasets/sample_faq.json"
+                   target="_blank" rel="noopener">
+                  datheon.in/datasets/sample_faq.json
+                </a>
+              </div>
+              <div style="margin-top:var(--sp-1);font-size:var(--text-xs);color:var(--clr-ink-muted);">
+                3 FAQs · 5 greetings · JSON · Saved as <code>faq_assistant/resources/sample_faq.json</code>
+              </div>
+            </div>
+            <span class="status-badge ok">✓ Downloaded</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ DOCUMENTATION ══════════════════════════════════════════════════ -->
+    <section class="section" id="documentation" data-section aria-labelledby="docs-title">
+      <div class="container">
+        <header class="section-header">
+          <span class="section-eyebrow">Documentation</span>
+          <h2 class="section-title" id="docs-title">Project Documentation</h2>
+        </header>
+
+        <div class="docs-grid">
+          <a href="documentation/DESIGN.md" class="doc-link" id="link-design">
+            <div class="doc-link-icon">🎨</div>
+            <div class="doc-link-title">DESIGN.md</div>
+            <div class="doc-link-desc">Visual design rationale, colour system, layout decisions, and component patterns.</div>
+          </a>
+          <a href="documentation/DATA_SOURCES.md" class="doc-link" id="link-datasources">
+            <div class="doc-link-icon">📦</div>
+            <div class="doc-link-title">DATA_SOURCES.md</div>
+            <div class="doc-link-desc">Dataset URLs, download dates, schema notes, availability status, and fallback policies.</div>
+          </a>
+          <a href="documentation/VALIDATION.md" class="doc-link" id="link-validation">
+            <div class="doc-link-icon">✅</div>
+            <div class="doc-link-title">VALIDATION.md</div>
+            <div class="doc-link-desc">Actual test results, link verification, and safety check outcomes.</div>
+          </a>
+          <a href="word_challenge/README.md" class="doc-link" id="link-readme-hangman">
+            <div class="doc-link-icon">🎯</div>
+            <div class="doc-link-title">Hangman README</div>
+            <div class="doc-link-desc">Setup, run commands, dataset info, and test coverage for the word challenge.</div>
+          </a>
+          <a href="market_journal/README.md" class="doc-link" id="link-readme-portfolio">
+            <div class="doc-link-icon">📈</div>
+            <div class="doc-link-title">Portfolio README</div>
+            <div class="doc-link-desc">Disclaimer, usage instructions, CSV format, and price sourcing policy.</div>
+          </a>
+          <a href="README.md" class="doc-link" id="link-readme-root">
+            <div class="doc-link-icon">📄</div>
+            <div class="doc-link-title">Root README</div>
+            <div class="doc-link-desc">Project overview, quick-start guide, structure map, and test commands.</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══ FOOTER ════════════════════════════════════════════════════════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <p class="footer-text">
+          Python Practical Lab — Educational project suite. Standard library only.
+          No investment advice. No fabricated data.
+        </p>
+        <ul class="footer-links">
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="documentation/DATA_SOURCES.md">Data Sources</a></li>
+          <li><a href="documentation/VALIDATION.md">Validation</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="web/scripts/portal.js"></script>
+</body>
+</html>

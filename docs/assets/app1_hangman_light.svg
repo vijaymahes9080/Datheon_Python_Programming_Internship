@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 420" width="1100" height="420">
+  <defs>
+    <filter id="shadow1" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#1E1B4B" flood-opacity="0.06"/>
+    </filter>
+  </defs>
+
+  <rect width="1100" height="420" rx="14" fill="#FAF9F6" stroke="#D8D5CC" stroke-width="1.5"/>
+
+  <!-- Left: Monospace Terminal Window -->
+  <g transform="translate(45, 40)" filter="url(#shadow1)">
+    <rect width="470" height="340" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+    <rect width="470" height="36" rx="10" fill="#F1F5F9"/>
+    <rect y="26" width="470" height="10" fill="#F1F5F9"/>
+    <circle cx="20" cy="18" r="5" fill="#EF4444"/>
+    <circle cx="36" cy="18" r="5" fill="#F59E0B"/>
+    <circle cx="52" cy="18" r="5" fill="#10B981"/>
+    <text x="235" y="22" font-family="'JetBrains Mono', Consolas, monospace" font-size="11" fill="#64748B" text-anchor="middle">terminal — word_challenge/game.py</text>
+
+    <!-- Terminal Content -->
+    <g transform="translate(30, 60)" font-family="'JetBrains Mono', Consolas, monospace" font-size="13" fill="#1E1B4B">
+      <text x="0" y="20" fill="#94A3B8">  +---+</text>
+      <text x="0" y="40" fill="#94A3B8">  |   |</text>
+      <text x="0" y="60" fill="#E05C43" font-weight="700">  O   |</text>
+      <text x="0" y="80" fill="#E05C43" font-weight="700"> /|\  |</text>
+      <text x="0" y="100" fill="#E05C43" font-weight="700"> /    |</text>
+      <text x="0" y="120" fill="#94A3B8">========</text>
+
+      <g transform="translate(170, 20)">
+        <text x="0" y="10" font-size="11" fill="#64748B">WORD CATEGORY: GENERAL</text>
+        <text x="0" y="40" font-size="18" font-weight="700" fill="#1E1B4B" letter-spacing="4">P Y T H _ N</text>
+        <text x="0" y="70" font-size="12" fill="#64748B">Guessed letters:</text>
+        <text x="0" y="90" font-size="13" font-weight="700" fill="#E05C43">[A, E, I, S, T]</text>
+        <text x="0" y="115" font-size="12" fill="#64748B">Lives Remaining: <tspan fill="#E05C43" font-weight="700">2 / 6</tspan></text>
+      </g>
+
+      <line x1="0" y1="150" x2="410" y2="150" stroke="#E2E8F0" stroke-width="1"/>
+
+      <text x="0" y="180" fill="#047857" font-weight="700">&gt; Guess a letter: o</text>
+      <text x="0" y="205" fill="#2563EB">Good job! 'O' is in the word.</text>
+      <text x="0" y="235" font-size="16" font-weight="800" fill="#16A34A" letter-spacing="4">P Y T H O N</text>
+      <text x="0" y="258" fill="#10B981" font-weight="700">🎉 VICTORY! You guessed the word!</text>
+    </g>
+  </g>
+
+  <!-- Right: Feature Breakdown -->
+  <g transform="translate(560, 45)">
+    <rect width="180" height="26" rx="13" fill="#FDF1EE" stroke="#F5C4BA" stroke-width="1"/>
+    <text x="14" y="17" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#E05C43" letter-spacing="1">TASK 01 SHOWCASE</text>
+
+    <text x="0" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="26" font-weight="800" fill="#1E1B4B">Hangman Word Challenge</text>
+    <text x="0" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#475569">A robust terminal word-guessing game with dynamic ASCII gallows art</text>
+
+    <!-- Key Capabilities List -->
+    <g transform="translate(0, 115)">
+      <!-- Item 1 -->
+      <circle cx="12" cy="12" r="10" fill="#FDF1EE"/>
+      <text x="12" y="16" font-size="12" text-anchor="middle" fill="#E05C43">✓</text>
+      <text x="32" y="12" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#1E1B4B">9,894-Word Curated Dataset</text>
+      <text x="32" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" fill="#64748B">Sourced from Google 10k English with length filtering &amp; normalization</text>
+
+      <!-- Item 2 -->
+      <g transform="translate(0, 48)">
+        <circle cx="12" cy="12" r="10" fill="#FDF1EE"/>
+        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#E05C43">✓</text>
+        <text x="32" y="12" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#1E1B4B">Defensive Input Validation</text>
+        <text x="32" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" fill="#64748B">Rejects multi-character strings, digits, symbols &amp; duplicate attempts</text>
+      </g>
+
+      <!-- Item 3 -->
+      <g transform="translate(0, 96)">
+        <circle cx="12" cy="12" r="10" fill="#FDF1EE"/>
+        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#E05C43">✓</text>
+        <text x="32" y="12" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#1E1B4B">Dual CLI &amp; In-Browser Web Showcase</text>
+        <text x="32" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" fill="#64748B">Run via python in terminal or test live in browser with virtual keyboard</text>
+      </g>
+
+      <!-- Item 4 -->
+      <g transform="translate(0, 144)">
+        <circle cx="12" cy="12" r="10" fill="#FDF1EE"/>
+        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#E05C43">✓</text>
+        <text x="32" y="12" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#1E1B4B">Full Test Suite Verification</text>
+        <text x="32" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" fill="#64748B">Exhaustive unittest coverage for state transitions, gallows progression &amp; win/loss</text>
+      </g>
+    </g>
+
+    <!-- Tech tags -->
+    <g transform="translate(0, 305)">
+      <rect width="65" height="24" rx="4" fill="#F1F5F9"/>
+      <text x="32" y="16" font-family="'JetBrains Mono', Consolas, monospace" font-size="11" font-weight="600" fill="#475569" text-anchor="middle">random</text>
+
+      <rect x="75" width="65" height="24" rx="4" fill="#F1F5F9"/>
+      <text x="107" y="16" font-family="'JetBrains Mono', Consolas, monospace" font-size="11" font-weight="600" fill="#475569" text-anchor="middle">pathlib</text>
+
+      <rect x="150" width="75" height="24" rx="4" fill="#F1F5F9"/>
+      <text x="187" y="16" font-family="'JetBrains Mono', Consolas, monospace" font-size="11" font-weight="600" fill="#475569" text-anchor="middle">unittest</text>
+
+      <rect x="235" width="130" height="24" rx="4" fill="#FDF1EE" stroke="#F5C4BA" stroke-width="1"/>
+      <text x="300" y="16" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#E05C43" text-anchor="middle">Standard Library Only</text>
+    </g>
+  </g>
+</svg>

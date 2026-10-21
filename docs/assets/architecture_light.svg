@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 480" width="1200" height="480">
+  <defs>
+    <linearGradient id="archBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FAF9F6"/>
+      <stop offset="100%" stop-color="#F2EFE8"/>
+    </linearGradient>
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#1E1B4B" flood-opacity="0.05"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="480" fill="url(#archBg)"/>
+  <rect x="1" y="1" width="1198" height="478" rx="16" fill="none" stroke="#D8D5CC" stroke-width="2"/>
+
+  <!-- Header -->
+  <g transform="translate(60, 36)">
+    <rect width="270" height="28" rx="14" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1"/>
+    <text x="20" y="18" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#2563EB" letter-spacing="1">SYSTEM ARCHITECTURE &amp; DATA FLOW</text>
+    <text x="0" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="800" fill="#1E1B4B">Multi-Tier Modular Engineering Pipeline</text>
+    <text x="0" y="82" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#64748B">Decoupled execution engines, defensive runtime protections, and automated test verification</text>
+  </g>
+
+  <!-- Flow Columns (4 Layers) -->
+
+  <!-- Layer 1: Presentation Layer -->
+  <g transform="translate(60, 145)" filter="url(#boxShadow)">
+    <rect width="245" height="290" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    <rect x="0" y="0" width="245" height="40" rx="12" fill="#F8FAFC"/>
+    <rect x="0" y="30" width="245" height="10" fill="#F8FAFC"/>
+    <text x="20" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#1E1B4B">1. PRESENTATION LAYER</text>
+
+    <!-- Sub-blocks -->
+    <rect x="16" y="55" width="213" height="75" rx="8" fill="#FDF1EE" stroke="#F5C4BA" stroke-width="1"/>
+    <text x="30" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#E05C43">🖥️ Terminal CLI Engines</text>
+    <text x="30" y="98" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#64748B">Pure Python standard I/O</text>
+    <text x="30" y="114" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#64748B">ASCII art, flags (--dry-run)</text>
+
+    <rect x="16" y="145" width="213" height="75" rx="8" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="1"/>
+    <text x="30" y="168" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#16A34A">🌐 Web Portal &amp; Showcases</text>
+    <text x="30" y="188" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#64748B">index.html + vanilla JS widgets</text>
+    <text x="30" y="204" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#64748B">Editorial light theme styling</text>
+
+    <rect x="16" y="235" width="213" height="40" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+    <text x="30" y="260" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" fill="#475569">0 ms compilation runtime</text>
+  </g>
+
+  <!-- Arrow 1 to 2 -->
+  <g transform="translate(315, 280)">
+    <line x1="0" y1="0" x2="20" y2="0" stroke="#CBD5E1" stroke-width="2" stroke-dasharray="4"/>
+    <polygon points="20,-4 28,0 20,4" fill="#94A3B8"/>
+  </g>
+
+  <!-- Layer 2: Core Applications -->
+  <g transform="translate(350, 145)" filter="url(#boxShadow)">
+    <rect width="255" height="290" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    <rect x="0" y="0" width="255" height="40" rx="12" fill="#F8FAFC"/>
+    <rect x="0" y="30" width="255" height="10" fill="#F8FAFC"/>
+    <text x="20" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#1E1B4B">2. CORE APPLICATION LOGIC</text>
+
+    <g transform="translate(16, 55)">
+      <rect width="223" height="48" rx="6" fill="#FAF9F6" stroke="#E2E8F0" stroke-width="1"/>
+      <text x="14" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" fill="#1E1B4B">🎯 word_challenge/game.py</text>
+      <text x="14" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#64748B">Gallows state machine &amp; word guessing</text>
+    </g>
+
+    <g transform="translate(16, 112)">
+      <rect width="223" height="48" rx="6" fill="#FAF9F6" stroke="#E2E8F0" stroke-width="1"/>
+      <text x="14" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" fill="#1E1B4B">📈 market_journal/tracker.py</text>
+      <text x="14" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#64748B">S&amp;P 500 lookup, P&amp;L math, ledger logic</text>
+    </g>
+
+    <g transform="translate(16, 169)">
+      <rect width="223" height="48" rx="6" fill="#FAF9F6" stroke="#E2E8F0" stroke-width="1"/>
+      <text x="14" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" fill="#1E1B4B">🗂️ desktop_sorter/sorter.py</text>
+      <text x="14" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#64748B">Classifier engine &amp; collision resolver</text>
+    </g>
+
+    <g transform="translate(16, 226)">
+      <rect width="223" height="48" rx="6" fill="#FAF9F6" stroke="#E2E8F0" stroke-width="1"/>
+      <text x="14" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" fill="#1E1B4B">🤖 faq_assistant/assistant.py</text>
+      <text x="14" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#64748B">Tokenization &amp; intent scoring</text>
+    </g>
+  </g>
+
+  <!-- Arrow 2 to 3 -->
+  <g transform="translate(615, 280)">
+    <line x1="0" y1="0" x2="20" y2="0" stroke="#CBD5E1" stroke-width="2" stroke-dasharray="4"/>
+    <polygon points="20,-4 28,0 20,4" fill="#94A3B8"/>
+  </g>
+
+  <!-- Layer 3: Defensive Safety & Runtime -->
+  <g transform="translate(645, 145)" filter="url(#boxShadow)">
+    <rect width="245" height="290" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    <rect x="0" y="0" width="245" height="40" rx="12" fill="#F8FAFC"/>
+    <rect x="0" y="30" width="245" height="10" fill="#F8FAFC"/>
+    <text x="20" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#1E1B4B">3. DEFENSIVE SAFETY</text>
+
+    <rect x="16" y="55" width="213" height="45" rx="6" fill="#FFFBEB" stroke="#FDE68A" stroke-width="1"/>
+    <text x="26" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#B45309">🛡️ Dry-Run Simulation</text>
+    <text x="26" y="90" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#78350F">Pre-validates moves before touching disk</text>
+
+    <rect x="16" y="110" width="213" height="45" rx="6" fill="#FFFBEB" stroke="#FDE68A" stroke-width="1"/>
+    <text x="26" y="129" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#B45309">🔄 Zero Overwrite Resolver</text>
+    <text x="26" y="145" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#78350F">Automatic duplicate renaming pattern</text>
+
+    <rect x="16" y="165" width="213" height="45" rx="6" fill="#FFFBEB" stroke="#FDE68A" stroke-width="1"/>
+    <text x="26" y="184" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#B45309">🚫 Path &amp; Input Guardrails</text>
+    <text x="26" y="200" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#78350F">Blocks root, OS files, invalid inputs</text>
+
+    <rect x="16" y="220" width="213" height="45" rx="6" fill="#FFFBEB" stroke="#FDE68A" stroke-width="1"/>
+    <text x="26" y="239" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#B45309">💬 NLP Fallback Engine</text>
+    <text x="26" y="255" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#78350F">Graceful recovery for unknown queries</text>
+
+    <rect x="16" y="272" width="213" height="50" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+    <text x="26" y="292" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="600" fill="#475569">Audit Logs: desktop_sorter/logs/</text>
+    <text x="26" y="308" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#64748B">Timestamped tracking for every action</text>
+  </g>
+
+  <!-- Arrow 3 to 4 -->
+  <g transform="translate(900, 280)">
+    <line x1="0" y1="0" x2="20" y2="0" stroke="#CBD5E1" stroke-width="2" stroke-dasharray="4"/>
+    <polygon points="20,-4 28,0 20,4" fill="#94A3B8"/>
+  </g>
+
+  <!-- Layer 4: Data & Verification -->
+  <g transform="translate(930, 145)" filter="url(#boxShadow)">
+    <rect width="210" height="290" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    <rect x="0" y="0" width="210" height="40" rx="12" fill="#F8FAFC"/>
+    <rect x="0" y="30" width="210" height="10" fill="#F8FAFC"/>
+    <text x="18" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#1E1B4B">4. DATA &amp; TESTS</text>
+
+    <g transform="translate(14, 55)">
+      <rect width="182" height="60" rx="6" fill="#F5F3FF" stroke="#DDD6FE" stroke-width="1"/>
+      <text x="12" y="20" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#7C3AED">📂 Verified Datasets</text>
+      <text x="12" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#64748B">• Google 10k English Words</text>
+      <text x="12" y="50" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#64748B">• S&amp;P 500 Constituents CSV</text>
+    </g>
+
+    <g transform="translate(14, 125)">
+      <rect width="182" height="45" rx="6" fill="#F5F3FF" stroke="#DDD6FE" stroke-width="1"/>
+      <text x="12" y="20" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#7C3AED">📄 JSON Knowledge Base</text>
+      <text x="12" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#64748B">• sample_faq.json (Datheon)</text>
+    </g>
+
+    <g transform="translate(14, 180)">
+      <rect width="182" height="95" rx="6" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1"/>
+      <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#047857">🧪 unittest Test Suite</text>
+      <text x="12" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#065F46">• 100+ tests passing</text>
+      <text x="12" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#065F46">• Edge-case coverage</text>
+      <text x="12" y="72" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#065F46">• Boundary condition tests</text>
+      <text x="12" y="88" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="700" fill="#047857">STATUS: ALL PASSING</text>
+    </g>
+  </g>
+</svg>

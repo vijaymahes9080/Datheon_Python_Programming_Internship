@@ -1,13 +1,21 @@
-# Python
+# ==============================================================================
+# Python Practical Lab — .gitignore
+# ==============================================================================
+
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+*$py.class
 *.pyo
 *.pyd
-*.egg-info/
-*.egg
+*.so
+
+# Distribution / packaging
 dist/
 build/
 .eggs/
+*.egg-info/
+*.egg
 *.whl
 
 # Virtual environments
@@ -15,26 +23,51 @@ venv/
 .venv/
 env/
 ENV/
+env.bak/
+venv.bak/
 
-# Test coverage
+# Unit test & coverage reports
 .coverage
+.coverage.*
 htmlcov/
 .pytest_cache/
+nosetests.xml
+coverage.xml
 
-# IDE
+# IDE & Editor files
 .vscode/
 .idea/
+*.swp
+*.swo
+*~
 *.suo
 *.user
+*.userosscache
+*.sln.docstates
 
-# OS
+# Operating System files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 desktop.ini
 
-# Application generated files
+# Application generated runtime outputs & logs
 desktop_sorter/logs/*.log
 market_journal/resources/portfolio_report_*.csv
 
-# Keep log directory
+# Temporary build & generator files
+docs/assets/*.temp.html
+*.temp.html
+
+# Preserve essential directory structure
 !desktop_sorter/logs/.gitkeep
+
+# Ensure repository visual assets and images are tracked
+!docs/assets/*.svg
+!docs/assets/*.png
+!image.png
+!linkedin_showcase.svg

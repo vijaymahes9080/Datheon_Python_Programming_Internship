@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 420" width="1100" height="420">
+  <defs>
+    <filter id="shadow4" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#1E1B4B" flood-opacity="0.06"/>
+    </filter>
+  </defs>
+
+  <rect width="1100" height="420" rx="14" fill="#FAF9F6" stroke="#D8D5CC" stroke-width="1.5"/>
+
+  <!-- Left: Conversational Chat UI -->
+  <g transform="translate(45, 40)" filter="url(#shadow4)">
+    <rect width="470" height="340" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+    <rect width="470" height="42" rx="12" fill="#F8FAFC"/>
+    <rect y="32" width="470" height="10" fill="#F8FAFC"/>
+    <circle cx="28" cy="21" r="7" fill="#10B981"/>
+    <text x="44" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" fill="#1E1B4B">FAQ CONVERSATION ASSISTANT</text>
+    <rect x="350" y="10" width="100" height="22" rx="11" fill="#F5F3FF" stroke="#DDD6FE" stroke-width="1"/>
+    <text x="400" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="700" fill="#7C3AED" text-anchor="middle">NLP PIPELINE</text>
+
+    <!-- Chat Messages -->
+    <g transform="translate(20, 58)">
+      <!-- User Bubble 1 -->
+      <g transform="translate(110, 0)">
+        <rect width="320" height="44" rx="12" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1"/>
+        <text x="16" y="20" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#1E40AF">How do I submit my project assignment?</text>
+        <text x="16" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#64748B">User Query • Intent: faq_submit</text>
+      </g>
+
+      <!-- Bot Bubble 1 -->
+      <g transform="translate(0, 56)">
+        <rect width="390" height="85" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+        <!-- Intent badge -->
+        <rect x="14" y="12" width="160" height="18" rx="4" fill="#F5F3FF" stroke="#DDD6FE" stroke-width="1"/>
+        <text x="20" y="25" font-family="'JetBrains Mono', Consolas, monospace" font-size="9" font-weight="700" fill="#7C3AED">MATCH: SUBMIT_ASSIGNMENT (96%)</text>
+        
+        <text x="14" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#1E1B4B">Assignments must be submitted via the student portal before</text>
+        <text x="14" y="64" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#1E1B4B">the deadline. Include all tests, source files, and report docs.</text>
+        <text x="14" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" fill="#059669">✓ Sourced from Datheon sample_faq.json</text>
+      </g>
+
+      <!-- User Bubble 2 -->
+      <g transform="translate(180, 153)">
+        <rect width="250" height="34" rx="12" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1"/>
+        <text x="14" y="21" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#1E40AF">When will I get my certificate?</text>
+      </g>
+
+      <!-- Bot Bubble 2 -->
+      <g transform="translate(0, 198)">
+        <rect width="390" height="65" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+        <rect x="14" y="10" width="150" height="18" rx="4" fill="#F5F3FF" stroke="#DDD6FE" stroke-width="1"/>
+        <text x="20" y="23" font-family="'JetBrains Mono', Consolas, monospace" font-size="9" font-weight="700" fill="#7C3AED">MATCH: CERTIFICATE (92%)</text>
+        <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#1E1B4B">Certificates are dispatched within 5 to 7 business days</text>
+        <text x="14" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#1E1B4B">following successful completion and mentor verification.</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Right: Feature Breakdown -->
+  <g transform="translate(560, 45)">
+    <rect width="180" height="26" rx="13" fill="#F5F3FF" stroke="#DDD6FE" stroke-width="1"/>
+    <text x="14" y="17" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#7C3AED" letter-spacing="1">TASK 04 SHOWCASE</text>
+
+    <text x="0" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="26" font-weight="800" fill="#1E1B4B">FAQ Conversation Assistant</text>
+    <text x="0" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#475569">Rule-based conversational agent with multi-stage intent classification</text>
+
+    <!-- Key Capabilities List -->
+    <g transform="translate(0, 115)">
+      <!-- Item 1 -->
+      <circle cx="12" cy="12" r="10" fill="#F5F3FF"/>
+      <text x="12" y="16" font-size="12" text-anchor="middle" fill="#7C3AED">✓</text>
+      <text x="32" y="12" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#1E1B4B">NLP Preprocessing Pipeline</text>
+      <text x="32" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" fill="#64748B">String normalization, punctuation cleansing, and English stopword extraction</text>
+
+      <!-- Item 2 -->
+      <g transform="translate(0, 48)">
+        <circle cx="12" cy="12" r="10" fill="#F5F3FF"/>
+        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#7C3AED">✓</text>
+        <text x="32" y="12" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#1E1B4B">Jaccard Keyword Scoring Engine</text>
+        <text x="32" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" fill="#64748B">Computes overlap token similarity against questions in sample_faq.json</text>
+      </g>
+
+      <!-- Item 3 -->
+      <g transform="translate(0, 96)">
+        <circle cx="12" cy="12" r="10" fill="#F5F3FF"/>
+        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#7C3AED">✓</text>
+        <text x="32" y="12" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#1E1B4B">Graceful Ambiguity Fallback</text>
+        <text x="32" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" fill="#64748B">Never breaks on unrecognised input — offers clarifying suggestion topics</text>
+      </g>
+
+      <!-- Item 4 -->
+      <g transform="translate(0, 144)">
+        <circle cx="12" cy="12" r="10" fill="#F5F3FF"/>
+        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#7C3AED">✓</text>
+        <text x="32" y="12" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#1E1B4B">Web Chat Simulator Included</text>
+        <text x="32" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" fill="#64748B">Interactive HTML interface in faq_assistant/index.html with clickable queries</text>
+      </g>
+    </g>
+
+    <!-- Tech tags -->
+    <g transform="translate(0, 305)">
+      <rect width="45" height="24" rx="4" fill="#F1F5F9"/>
+      <text x="22" y="16" font-family="'JetBrains Mono', Consolas, monospace" font-size="11" font-weight="600" fill="#475569" text-anchor="middle">json</text>
+
+      <rect x="55" width="35" height="24" rx="4" fill="#F1F5F9"/>
+      <text x="72" y="16" font-family="'JetBrains Mono', Consolas, monospace" font-size="11" font-weight="600" fill="#475569" text-anchor="middle">re</text>
+
+      <rect x="100" width="85" height="24" rx="4" fill="#F1F5F9"/>
+      <text x="142" y="16" font-family="'JetBrains Mono', Consolas, monospace" font-size="11" font-weight="600" fill="#475569" text-anchor="middle">collections</text>
+
+      <rect x="195" width="75" height="24" rx="4" fill="#F1F5F9"/>
+      <text x="232" y="16" font-family="'JetBrains Mono', Consolas, monospace" font-size="11" font-weight="600" fill="#475569" text-anchor="middle">unittest</text>
+
+      <rect x="280" width="130" height="24" rx="4" fill="#F5F3FF" stroke="#DDD6FE" stroke-width="1"/>
+      <text x="345" y="16" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#7C3AED" text-anchor="middle">Standard Library Only</text>
+    </g>
+  </g>
+</svg>

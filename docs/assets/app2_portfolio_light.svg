@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 420" width="1100" height="420">
+  <defs>
+    <filter id="shadow2" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#1E1B4B" flood-opacity="0.06"/>
+    </filter>
+  </defs>
+
+  <rect width="1100" height="420" rx="14" fill="#FAF9F6" stroke="#D8D5CC" stroke-width="1.5"/>
+
+  <!-- Left: Financial Dashboard Card -->
+  <g transform="translate(45, 40)" filter="url(#shadow2)">
+    <rect width="470" height="340" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+    <rect width="470" height="42" rx="12" fill="#F8FAFC"/>
+    <rect y="32" width="470" height="10" fill="#F8FAFC"/>
+    <text x="24" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" fill="#1E1B4B">PORTFOLIO MARKET JOURNAL</text>
+    <rect x="360" y="10" width="90" height="22" rx="11" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1"/>
+    <text x="405" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="700" fill="#047857" text-anchor="middle">S&amp;P 500 VERIFIED</text>
+
+    <!-- Balance Row -->
+    <g transform="translate(24, 60)">
+      <rect width="200" height="65" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+      <text x="14" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#64748B">TOTAL PORTFOLIO VALUE</text>
+      <text x="14" y="50" font-family="'JetBrains Mono', Consolas, monospace" font-size="20" font-weight="800" fill="#1E1B4B">$14,340.50</text>
+
+      <rect x="220" width="200" height="65" rx="8" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1"/>
+      <text x="234" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#065F46">TOTAL UNREALIZED GAIN</text>
+      <text x="234" y="50" font-family="'JetBrains Mono', Consolas, monospace" font-size="20" font-weight="800" fill="#047857">+$1,890.50 (+15.2%)</text>
+    </g>
+
+    <!-- Table Header -->
+    <g transform="translate(24, 145)" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#64748B">
+      <rect width="422" height="26" fill="#F1F5F9" rx="4"/>
+      <text x="12" y="17">TICKER</text>
+      <text x="100" y="17">SHARES</text>
+      <text x="180" y="17">BUY PRICE</text>
+      <text x="270" y="17">CURRENT</text>
+      <text x="360" y="17">RETURN</text>
+    </g>
+
+    <!-- Row 1: AAPL -->
+    <g transform="translate(24, 180)" font-family="'JetBrains Mono', Consolas, monospace" font-size="12">
+      <text x="12" y="16" font-weight="700" fill="#1E1B4B">AAPL</text>
+      <text x="100" y="16" fill="#475569">20</text>
+      <text x="180" y="16" fill="#475569">$150.00</text>
+      <text x="270" y="16" fill="#475569">$182.50</text>
+      <text x="360" y="16" font-weight="700" fill="#047857">+21.67%</text>
+      <line x1="0" y1="26" x2="422" y2="26" stroke="#F1F5F9" stroke-width="1"/>
+    </g>
+
+    <!-- Row 2: NVDA -->
+    <g transform="translate(24, 215)" font-family="'JetBrains Mono', Consolas, monospace" font-size="12">
+      <text x="12" y="16" font-weight="700" fill="#1E1B4B">NVDA</text>
+      <text x="100" y="16" fill="#475569">15</text>
+      <text x="180" y="16" fill="#475569">$420.00</text>
+      <text x="270" y="16" fill="#475569">$495.00</text>
+      <text x="360" y="16" font-weight="700" fill="#047857">+17.86%</text>
+      <line x1="0" y1="26" x2="422" y2="26" stroke="#F1F5F9" stroke-width="1"/>
+    </g>
+
+    <!-- Row 3: MSFT -->
+    <g transform="translate(24, 250)" font-family="'JetBrains Mono', Consolas, monospace" font-size="12">
+      <text x="12" y="16" font-weight="700" fill="#1E1B4B">MSFT</text>
+      <text x="100" y="16" fill="#475569">10</text>
+      <text x="180" y="16" fill="#475569">$310.00</text>
+      <text x="270" y="16" fill="#475569">$335.00</text>
+      <text x="360" y="16" font-weight="700" fill="#047857">+8.06%</text>
+    </g>
+
+    <!-- Bottom Actions -->
+    <g transform="translate(24, 290)">
+      <rect width="130" height="28" rx="6" fill="#F1F5F9"/>
+      <text x="65" y="18" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" fill="#475569" text-anchor="middle">📄 Export to CSV</text>
+
+      <rect x="140" width="130" height="28" rx="6" fill="#F1F5F9"/>
+      <text x="205" y="18" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" fill="#475569" text-anchor="middle">➕ Add Position</text>
+    </g>
+  </g>
+
+  <!-- Right: Feature Breakdown -->
+  <g transform="translate(560, 45)">
+    <rect width="180" height="26" rx="13" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1"/>
+    <text x="14" y="17" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#047857" letter-spacing="1">TASK 02 SHOWCASE</text>
+
+    <text x="0" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="26" font-weight="800" fill="#1E1B4B">Portfolio Market Journal</text>
+    <text x="0" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#475569">Stock tracking &amp; gain/loss analysis engine backed by S&amp;P 500 records</text>
+
+    <!-- Key Capabilities List -->
+    <g transform="translate(0, 115)">
+      <!-- Item 1 -->
+      <circle cx="12" cy="12" r="10" fill="#ECFDF5"/>
+      <text x="12" y="16" font-size="12" text-anchor="middle" fill="#047857">✓</text>
+      <text x="32" y="12" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#1E1B4B">S&amp;P 500 Constituent Validation</text>
+      <text x="32" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" fill="#64748B">Validates tickers against 503 official constituent companies from CSV</text>
+
+      <!-- Item 2 -->
+      <g transform="translate(0, 48)">
+        <circle cx="12" cy="12" r="10" fill="#ECFDF5"/>
+        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#047857">✓</text>
+        <text x="32" y="12" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#1E1B4B">Defensive Financial Math</text>
+        <text x="32" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" fill="#64748B">Guards against division-by-zero, negative prices, and invalid quantities</text>
+      </g>
+
+      <!-- Item 3 -->
+      <g transform="translate(0, 96)">
+        <circle cx="12" cy="12" r="10" fill="#ECFDF5"/>
+        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#047857">✓</text>
+        <text x="32" y="12" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#1E1B4B">Dual Valuation Architecture</text>
+        <text x="32" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" fill="#64748B">Supports offline manual entry with extensible hooks for live web quotes</text>
+      </g>
+
+      <!-- Item 4 -->
+      <g transform="translate(0, 144)">
+        <circle cx="12" cy="12" r="10" fill="#ECFDF5"/>
+        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#047857">✓</text>
+        <text x="32" y="12" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#1E1B4B">Automated CSV Reports</text>
+        <text x="32" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" fill="#64748B">Exports complete timestamped portfolio snapshots ready for spreadsheet analysis</text>
+      </g>
+    </g>
+
+    <!-- Tech tags -->
+    <g transform="translate(0, 305)">
+      <rect width="45" height="24" rx="4" fill="#F1F5F9"/>
+      <text x="22" y="16" font-family="'JetBrains Mono', Consolas, monospace" font-size="11" font-weight="600" fill="#475569" text-anchor="middle">csv</text>
+
+      <rect x="55" width="55" height="24" rx="4" fill="#F1F5F9"/>
+      <text x="82" y="16" font-family="'JetBrains Mono', Consolas, monospace" font-size="11" font-weight="600" fill="#475569" text-anchor="middle">math</text>
+
+      <rect x="120" width="75" height="24" rx="4" fill="#F1F5F9"/>
+      <text x="157" y="16" font-family="'JetBrains Mono', Consolas, monospace" font-size="11" font-weight="600" fill="#475569" text-anchor="middle">datetime</text>
+
+      <rect x="205" width="75" height="24" rx="4" fill="#F1F5F9"/>
+      <text x="242" y="16" font-family="'JetBrains Mono', Consolas, monospace" font-size="11" font-weight="600" fill="#475569" text-anchor="middle">unittest</text>
+
+      <rect x="290" width="130" height="24" rx="4" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1"/>
+      <text x="355" y="16" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#047857" text-anchor="middle">Standard Library Only</text>
+    </g>
+  </g>
+</svg>
